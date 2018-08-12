@@ -67,6 +67,18 @@ public class Karyawan implements Serializable {
     @ManyToOne(optional = false)
     private Jabatan idJabatan;
 
+    public Karyawan(BigDecimal idKaryawan, String namaKaryawan, String email, String alamat, BigInteger jatahCuti, String idRole, BigInteger sisaCuti, List<Dtcuti> dtcutiList, Jabatan idJabatan) {
+        this.idKaryawan = idKaryawan;
+        this.namaKaryawan = namaKaryawan;
+        this.email = email;
+        this.alamat = alamat;
+        this.jatahCuti = jatahCuti;
+        this.idRole = idRole;
+        this.sisaCuti = sisaCuti;
+        this.dtcutiList = dtcutiList;
+        this.idJabatan = idJabatan;
+    }
+
     public Karyawan() {
     }
 

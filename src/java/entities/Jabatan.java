@@ -42,6 +42,12 @@ public class Jabatan implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idJabatan")
     private List<Karyawan> karyawanList;
 
+    public Jabatan(String idJabatan, String namaJabatan, List<Karyawan> karyawanList) {
+        this.idJabatan = idJabatan;
+        this.namaJabatan = namaJabatan;
+        this.karyawanList = karyawanList;
+    }
+
     public Jabatan() {
     }
 

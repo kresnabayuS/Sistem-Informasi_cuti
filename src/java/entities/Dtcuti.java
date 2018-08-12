@@ -49,6 +49,15 @@ public class Dtcuti implements Serializable {
     @ManyToOne(optional = false)
     private Karyawan idKaryawan;
 
+    public Dtcuti(String idDtcuti, String status, BigInteger lamaCuti, Cuti idCuti, Karyawan idKaryawan) {
+        this.idDtcuti = idDtcuti;
+        this.status = status;
+        this.lamaCuti = lamaCuti;
+        this.idCuti = idCuti;
+        this.idKaryawan = idKaryawan;
+    }
+    
+
     public Dtcuti() {
     }
 
