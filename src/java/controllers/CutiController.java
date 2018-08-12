@@ -6,6 +6,12 @@
 package controllers;
 
 import daos.CutiDAO;
+import entities.Cuti;
+import entities.CutiKhusus;
+import entities.Dtcuti;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
@@ -25,4 +31,31 @@ public class CutiController {
         this.cdao = new CutiDAO(factory);
     }
     
-    public boolean saveOrEdit
+    public boolean saveOrEdit(String idCuti, Date tanggalAwal, Date tanggalAkhir, String keterangan, CutiKhusus idCutiKhusus){
+        Cuti cuti = new Cuti(idCuti, tanggalAwal, tanggalAkhir, keterangan, idCutiKhusus);
+        return this.cdao.insertOrUpdate(cuti);
+    }
+    
+    private List<Cuti> convertToListCuti(List<Object> dataAwal) {
+        List<Cuti> datas = new ArrayList<>();
+        for (Object object : dataAwal) {
+            Cuti cuti = (Cuti) object;
+            datas.add(cuti);
+        }
+        return datas;
+    }
+    
+    public List<Cuti> getAll() {
+        return this.convertToListCuti(this.cdao.getAll());
+    }
+    
+    public Cuti getById(String idCuti) {
+        return this.cdao.getById(idCuti);
+    }
+    
+    public List<Cuti> find(String category, String data){
+        return this.convertToListCuti(this.cdao.search(category, data));
+    }
+}
+    
+

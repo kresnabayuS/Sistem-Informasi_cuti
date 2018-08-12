@@ -57,14 +57,15 @@ public class Cuti implements Serializable {
     @OneToMany(mappedBy = "idCuti")
     private List<Dtcuti> dtcutiList;
 
-    public Cuti(String idCuti, Date tanggalAwal, Date tanggalAkhir, String keterangan, CutiKhusus idCutiKhusus, List<Dtcuti> dtcutiList) {
+    public Cuti(String idCuti, Date tanggalAwal, Date tanggalAkhir, String keterangan, CutiKhusus idCutiKhusus) {
         this.idCuti = idCuti;
         this.tanggalAwal = tanggalAwal;
         this.tanggalAkhir = tanggalAkhir;
         this.keterangan = keterangan;
         this.idCutiKhusus = idCutiKhusus;
-        this.dtcutiList = dtcutiList;
     }
+
+   
     
 
     public Cuti() {

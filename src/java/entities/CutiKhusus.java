@@ -45,6 +45,13 @@ public class CutiKhusus implements Serializable {
     @OneToMany(mappedBy = "idCutiKhusus")
     private List<Cuti> cutiList;
 
+    public CutiKhusus(String idCutiKhusus, String keteranganCuti, BigInteger lamaCutiKhusus) {
+        this.idCutiKhusus = idCutiKhusus;
+        this.keteranganCuti = keteranganCuti;
+        this.lamaCutiKhusus = lamaCutiKhusus;
+    }
+
+
     public CutiKhusus() {
     }
 
