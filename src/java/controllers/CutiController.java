@@ -25,5 +25,4 @@ public class CutiController {
         this.cdao = new CutiDAO(factory);
     }
     
-    public boolean saveOrEdit(String idCuti, Date tanggalAwal, Date tanggalAkhir, String keterangan, )
-}
+    public boolean saveOrEdit
