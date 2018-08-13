@@ -11,6 +11,7 @@ import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -21,16 +22,16 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author kresna bayu
+ * @author Simbok_pc
  */
 @Entity
 @Table(name = "CUTI_KHUSUS")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "CutiKhusus_1.findAll", query = "SELECT c FROM CutiKhusus_1 c")
-    , @NamedQuery(name = "CutiKhusus_1.findByIdCutiKhusus", query = "SELECT c FROM CutiKhusus_1 c WHERE c.idCutiKhusus = :idCutiKhusus")
-    , @NamedQuery(name = "CutiKhusus_1.findByKeteranganCuti", query = "SELECT c FROM CutiKhusus_1 c WHERE c.keteranganCuti = :keteranganCuti")
-    , @NamedQuery(name = "CutiKhusus_1.findByLamaCutiKhusus", query = "SELECT c FROM CutiKhusus_1 c WHERE c.lamaCutiKhusus = :lamaCutiKhusus")})
+    @NamedQuery(name = "CutiKhusus.findAll", query = "SELECT c FROM CutiKhusus c")
+    , @NamedQuery(name = "CutiKhusus.findByIdCutiKhusus", query = "SELECT c FROM CutiKhusus c WHERE c.idCutiKhusus = :idCutiKhusus")
+    , @NamedQuery(name = "CutiKhusus.findByNamaCuti", query = "SELECT c FROM CutiKhusus c WHERE c.namaCuti = :namaCuti")
+    , @NamedQuery(name = "CutiKhusus.findByLamaCutiKhusus", query = "SELECT c FROM CutiKhusus c WHERE c.lamaCutiKhusus = :lamaCutiKhusus")})
 public class CutiKhusus implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -38,23 +39,23 @@ public class CutiKhusus implements Serializable {
     @Basic(optional = false)
     @Column(name = "ID_CUTI_KHUSUS")
     private String idCutiKhusus;
-    @Column(name = "KETERANGAN_CUTI")
-    private String keteranganCuti;
+    @Column(name = "NAMA_CUTI")
+    private String namaCuti;
     @Column(name = "LAMA_CUTI_KHUSUS")
     private BigInteger lamaCutiKhusus;
-    @OneToMany(mappedBy = "idCutiKhusus")
+    @OneToMany(mappedBy = "idCutiKhusus", fetch = FetchType.LAZY)
     private List<Cuti> cutiList;
-
-    public CutiKhusus(String idCutiKhusus, String keteranganCuti, BigInteger lamaCutiKhusus) {
-        this.idCutiKhusus = idCutiKhusus;
-        this.keteranganCuti = keteranganCuti;
-        this.lamaCutiKhusus = lamaCutiKhusus;
-    }
-
 
     public CutiKhusus() {
     }
 
+    public CutiKhusus(String idCutiKhusus, String namaCuti, BigInteger lamaCutiKhusus) {
+        this.idCutiKhusus = idCutiKhusus;
+        this.namaCuti = namaCuti;
+        this.lamaCutiKhusus = lamaCutiKhusus;
+    }
+
+    
     public CutiKhusus(String idCutiKhusus) {
         this.idCutiKhusus = idCutiKhusus;
     }
@@ -67,12 +68,12 @@ public class CutiKhusus implements Serializable {
         this.idCutiKhusus = idCutiKhusus;
     }
 
-    public String getKeteranganCuti() {
-        return keteranganCuti;
+    public String getNamaCuti() {
+        return namaCuti;
     }
 
-    public void setKeteranganCuti(String keteranganCuti) {
-        this.keteranganCuti = keteranganCuti;
+    public void setNamaCuti(String namaCuti) {
+        this.namaCuti = namaCuti;
     }
 
     public BigInteger getLamaCutiKhusus() {
@@ -114,7 +115,7 @@ public class CutiKhusus implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.CutiKhusus_1[ idCutiKhusus=" + idCutiKhusus + " ]";
+        return "entities.CutiKhusus[ idCutiKhusus=" + idCutiKhusus + " ]";
     }
     
 }

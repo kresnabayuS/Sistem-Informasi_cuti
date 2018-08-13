@@ -41,7 +41,7 @@ public class JabatanServlet extends HttpServlet {
         
         try (PrintWriter out = response.getWriter()) {
             session.setAttribute("jabatanDetails", jc.getById(id));
-            dispatcher =  request.getRequestDispatcher("");
+            dispatcher =  request.getRequestDispatcher("views/JabatanView.jsp");
             dispatcher.include(request, response);
         }
     }

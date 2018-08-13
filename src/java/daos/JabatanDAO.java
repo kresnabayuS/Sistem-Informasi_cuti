@@ -7,6 +7,7 @@ package daos;
 
 import entities.Jabatan;
 import java.util.List;
+import org.hibernate.SessionFactory;
 
 /**
  *
@@ -16,8 +17,8 @@ public class JabatanDAO {
     
     private FunctionDAO fdao;
 
-    public JabatanDAO(FunctionDAO fdao) {
-        this.fdao = fdao;
+    public JabatanDAO(SessionFactory factory) {
+        this.fdao = new FunctionDAO(factory);
     }
     
     public boolean insertOrUpdate(Jabatan jabatan){

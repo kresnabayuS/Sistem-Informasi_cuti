@@ -10,6 +10,7 @@ import java.math.BigInteger;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -20,7 +21,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author kresna bayu
+ * @author Simbok_pc
  */
 @Entity
 @Table(name = "DTCUTI")
@@ -43,11 +44,14 @@ public class Dtcuti implements Serializable {
     @Column(name = "LAMA_CUTI")
     private BigInteger lamaCuti;
     @JoinColumn(name = "ID_CUTI", referencedColumnName = "ID_CUTI")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Cuti idCuti;
     @JoinColumn(name = "ID_KARYAWAN", referencedColumnName = "ID_KARYAWAN")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Karyawan idKaryawan;
+
+    public Dtcuti() {
+    }
 
     public Dtcuti(String idDtcuti, String status, BigInteger lamaCuti, Cuti idCuti, Karyawan idKaryawan) {
         this.idDtcuti = idDtcuti;
@@ -57,10 +61,8 @@ public class Dtcuti implements Serializable {
         this.idKaryawan = idKaryawan;
     }
     
-
-    public Dtcuti() {
-    }
-
+    
+    
     public Dtcuti(String idDtcuti) {
         this.idDtcuti = idDtcuti;
     }

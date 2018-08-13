@@ -11,6 +11,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -21,15 +22,15 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author kresna bayu
+ * @author Simbok_pc
  */
 @Entity
 @Table(name = "JABATAN")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Jabatan_1.findAll", query = "SELECT j FROM Jabatan_1 j")
-    , @NamedQuery(name = "Jabatan_1.findByIdJabatan", query = "SELECT j FROM Jabatan_1 j WHERE j.idJabatan = :idJabatan")
-    , @NamedQuery(name = "Jabatan_1.findByNamaJabatan", query = "SELECT j FROM Jabatan_1 j WHERE j.namaJabatan = :namaJabatan")})
+    @NamedQuery(name = "Jabatan.findAll", query = "SELECT j FROM Jabatan j")
+    , @NamedQuery(name = "Jabatan.findByIdJabatan", query = "SELECT j FROM Jabatan j WHERE j.idJabatan = :idJabatan")
+    , @NamedQuery(name = "Jabatan.findByNamaJabatan", query = "SELECT j FROM Jabatan j WHERE j.namaJabatan = :namaJabatan")})
 public class Jabatan implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -39,18 +40,18 @@ public class Jabatan implements Serializable {
     private String idJabatan;
     @Column(name = "NAMA_JABATAN")
     private String namaJabatan;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idJabatan")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idJabatan", fetch = FetchType.LAZY)
     private List<Karyawan> karyawanList;
+
+    public Jabatan() {
+    }
 
     public Jabatan(String idJabatan, String namaJabatan) {
         this.idJabatan = idJabatan;
         this.namaJabatan = namaJabatan;
     }
-
     
-
-    public Jabatan() {
-    }
+    
 
     public Jabatan(String idJabatan) {
         this.idJabatan = idJabatan;
@@ -103,7 +104,7 @@ public class Jabatan implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.Jabatan_1[ idJabatan=" + idJabatan + " ]";
+        return "entities.Jabatan[ idJabatan=" + idJabatan + " ]";
     }
     
 }

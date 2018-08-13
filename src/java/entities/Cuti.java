@@ -11,6 +11,7 @@ import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -25,17 +26,17 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author kresna bayu
+ * @author Simbok_pc
  */
 @Entity
 @Table(name = "CUTI")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Cuti_1.findAll", query = "SELECT c FROM Cuti_1 c")
-    , @NamedQuery(name = "Cuti_1.findByIdCuti", query = "SELECT c FROM Cuti_1 c WHERE c.idCuti = :idCuti")
-    , @NamedQuery(name = "Cuti_1.findByTanggalAwal", query = "SELECT c FROM Cuti_1 c WHERE c.tanggalAwal = :tanggalAwal")
-    , @NamedQuery(name = "Cuti_1.findByTanggalAkhir", query = "SELECT c FROM Cuti_1 c WHERE c.tanggalAkhir = :tanggalAkhir")
-    , @NamedQuery(name = "Cuti_1.findByKeterangan", query = "SELECT c FROM Cuti_1 c WHERE c.keterangan = :keterangan")})
+    @NamedQuery(name = "Cuti.findAll", query = "SELECT c FROM Cuti c")
+    , @NamedQuery(name = "Cuti.findByIdCuti", query = "SELECT c FROM Cuti c WHERE c.idCuti = :idCuti")
+    , @NamedQuery(name = "Cuti.findByTanggalAwal", query = "SELECT c FROM Cuti c WHERE c.tanggalAwal = :tanggalAwal")
+    , @NamedQuery(name = "Cuti.findByTanggalAkhir", query = "SELECT c FROM Cuti c WHERE c.tanggalAkhir = :tanggalAkhir")
+    , @NamedQuery(name = "Cuti.findByKeterangan", query = "SELECT c FROM Cuti c WHERE c.keterangan = :keterangan")})
 public class Cuti implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -52,10 +53,13 @@ public class Cuti implements Serializable {
     @Column(name = "KETERANGAN")
     private String keterangan;
     @JoinColumn(name = "ID_CUTI_KHUSUS", referencedColumnName = "ID_CUTI_KHUSUS")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private CutiKhusus idCutiKhusus;
-    @OneToMany(mappedBy = "idCuti")
+    @OneToMany(mappedBy = "idCuti", fetch = FetchType.LAZY)
     private List<Dtcuti> dtcutiList;
+
+    public Cuti() {
+    }
 
     public Cuti(String idCuti, Date tanggalAwal, Date tanggalAkhir, String keterangan, CutiKhusus idCutiKhusus) {
         this.idCuti = idCuti;
@@ -65,12 +69,7 @@ public class Cuti implements Serializable {
         this.idCutiKhusus = idCutiKhusus;
     }
 
-   
     
-
-    public Cuti() {
-    }
-
     public Cuti(String idCuti) {
         this.idCuti = idCuti;
     }
@@ -146,7 +145,7 @@ public class Cuti implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.Cuti_1[ idCuti=" + idCuti + " ]";
+        return "entities.Cuti[ idCuti=" + idCuti + " ]";
     }
     
 }

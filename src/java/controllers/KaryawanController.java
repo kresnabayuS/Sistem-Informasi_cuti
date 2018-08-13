@@ -10,6 +10,7 @@ import daos.KaryawanDAO;
 import entities.Dtcuti;
 import entities.Jabatan;
 import entities.Karyawan;
+import entities.Role;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -33,8 +34,8 @@ public class KaryawanController {
         this.kdao = new KaryawanDAO((FunctionDAO) factory);
     }
     
-    public boolean saveOrEdit(BigDecimal idKaryawan, String namaKaryawan, String email, String alamat, BigInteger jatahCuti, String idRole, BigInteger sisaCuti, List<Dtcuti> dtcutiList, Jabatan idJabatan){
-        Karyawan karyawan = new Karyawan(idKaryawan, namaKaryawan, email, alamat, jatahCuti, idRole, sisaCuti, dtcutiList, idJabatan);
+    public boolean saveOrEdit(BigDecimal idKaryawan, String namaKaryawan, String email, String alamat, BigInteger jatahCuti, BigInteger sisaCuti, Jabatan idJabatan, Role idRole){
+        Karyawan karyawan = new Karyawan(idKaryawan, namaKaryawan, email, alamat, jatahCuti, sisaCuti, idJabatan, idRole);
         return this.kdao.insertOrUpdate(karyawan);
     }
     

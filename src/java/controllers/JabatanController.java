@@ -5,6 +5,7 @@
  */
 package controllers;
 
+import com.sun.org.apache.bcel.internal.generic.AALOAD;
 import daos.FunctionDAO;
 import daos.JabatanDAO;
 import entities.Jabatan;
@@ -26,7 +27,7 @@ public class JabatanController {
     }
     
     public JabatanController(SessionFactory factory) {
-        this.jdao = new JabatanDAO((FunctionDAO) factory);
+        this.jdao = new JabatanDAO(factory);
     }
     
     public boolean saveOrEdit(String idJabatan, String namaJabatan){

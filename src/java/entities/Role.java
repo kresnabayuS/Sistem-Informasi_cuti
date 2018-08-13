@@ -6,26 +6,31 @@
 package entities;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author kresna bayu
+ * @author Simbok_pc
  */
 @Entity
 @Table(name = "ROLE")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Role_1.findAll", query = "SELECT r FROM Role_1 r")
-    , @NamedQuery(name = "Role_1.findByIdRole", query = "SELECT r FROM Role_1 r WHERE r.idRole = :idRole")
-    , @NamedQuery(name = "Role_1.findByNamaRole", query = "SELECT r FROM Role_1 r WHERE r.namaRole = :namaRole")})
+    @NamedQuery(name = "Role.findAll", query = "SELECT r FROM Role r")
+    , @NamedQuery(name = "Role.findByIdRole", query = "SELECT r FROM Role r WHERE r.idRole = :idRole")
+    , @NamedQuery(name = "Role.findByNamaRole", query = "SELECT r FROM Role r WHERE r.namaRole = :namaRole")})
 public class Role implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -35,9 +40,10 @@ public class Role implements Serializable {
     private String idRole;
     @Column(name = "NAMA_ROLE")
     private String namaRole;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idRole", fetch = FetchType.LAZY)
+    private List<Karyawan> karyawanList;
 
     public Role() {
-        
     }
 
     public Role(String idRole, String namaRole) {
@@ -45,6 +51,8 @@ public class Role implements Serializable {
         this.namaRole = namaRole;
     }
 
+    
+    
     public Role(String idRole) {
         this.idRole = idRole;
     }
@@ -63,6 +71,15 @@ public class Role implements Serializable {
 
     public void setNamaRole(String namaRole) {
         this.namaRole = namaRole;
+    }
+
+    @XmlTransient
+    public List<Karyawan> getKaryawanList() {
+        return karyawanList;
+    }
+
+    public void setKaryawanList(List<Karyawan> karyawanList) {
+        this.karyawanList = karyawanList;
     }
 
     @Override
@@ -87,7 +104,7 @@ public class Role implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.Role_1[ idRole=" + idRole + " ]";
+        return "entities.Role[ idRole=" + idRole + " ]";
     }
     
 }

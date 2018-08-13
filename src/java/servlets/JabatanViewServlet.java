@@ -41,7 +41,7 @@ public class JabatanViewServlet extends HttpServlet {
         
         try (PrintWriter out = response.getWriter()) {
             session.setAttribute("apa", jc.getAll());
-            dispatcher = request.getRequestDispatcher("views/cobaView.jsp");
+            dispatcher = request.getRequestDispatcher("views/jabatanView.jsp");
             dispatcher.forward(request, response);
         }
     }
@@ -84,5 +84,4 @@ public class JabatanViewServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
 }

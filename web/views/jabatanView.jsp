@@ -12,12 +12,13 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Data Jabatan</title>
     </head>
     <body>
         <h1>Data Jabatan!</h1>
          <% JabatanController jc = new JabatanController(HibernateUtil.getSessionFactory()); %>
-        <select name="cmbCategory">
+         <p>
+         <select name="cmbCategory">
         </select>
         <input type="text" name="txtFind" value="" />
         <input type="submit" value="Find" name="btnFind" />

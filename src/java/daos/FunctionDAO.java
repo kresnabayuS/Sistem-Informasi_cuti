@@ -25,9 +25,7 @@ public class FunctionDAO implements InterfaceDAO{
     public FunctionDAO(SessionFactory factory) {
         this.factory = factory;
     }
-    
-    
-    
+  
     @Override
     public boolean insertOrUpdate(Object object) {
     boolean flag = false;

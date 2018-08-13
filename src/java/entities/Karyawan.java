@@ -13,6 +13,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -25,20 +26,19 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author kresna bayu
+ * @author Simbok_pc
  */
 @Entity
 @Table(name = "KARYAWAN")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Karyawan_1.findAll", query = "SELECT k FROM Karyawan_1 k")
-    , @NamedQuery(name = "Karyawan_1.findByIdKaryawan", query = "SELECT k FROM Karyawan_1 k WHERE k.idKaryawan = :idKaryawan")
-    , @NamedQuery(name = "Karyawan_1.findByNamaKaryawan", query = "SELECT k FROM Karyawan_1 k WHERE k.namaKaryawan = :namaKaryawan")
-    , @NamedQuery(name = "Karyawan_1.findByEmail", query = "SELECT k FROM Karyawan_1 k WHERE k.email = :email")
-    , @NamedQuery(name = "Karyawan_1.findByAlamat", query = "SELECT k FROM Karyawan_1 k WHERE k.alamat = :alamat")
-    , @NamedQuery(name = "Karyawan_1.findByJatahCuti", query = "SELECT k FROM Karyawan_1 k WHERE k.jatahCuti = :jatahCuti")
-    , @NamedQuery(name = "Karyawan_1.findByIdRole", query = "SELECT k FROM Karyawan_1 k WHERE k.idRole = :idRole")
-    , @NamedQuery(name = "Karyawan_1.findBySisaCuti", query = "SELECT k FROM Karyawan_1 k WHERE k.sisaCuti = :sisaCuti")})
+    @NamedQuery(name = "Karyawan.findAll", query = "SELECT k FROM Karyawan k")
+    , @NamedQuery(name = "Karyawan.findByIdKaryawan", query = "SELECT k FROM Karyawan k WHERE k.idKaryawan = :idKaryawan")
+    , @NamedQuery(name = "Karyawan.findByNamaKaryawan", query = "SELECT k FROM Karyawan k WHERE k.namaKaryawan = :namaKaryawan")
+    , @NamedQuery(name = "Karyawan.findByEmail", query = "SELECT k FROM Karyawan k WHERE k.email = :email")
+    , @NamedQuery(name = "Karyawan.findByAlamat", query = "SELECT k FROM Karyawan k WHERE k.alamat = :alamat")
+    , @NamedQuery(name = "Karyawan.findByJatahCuti", query = "SELECT k FROM Karyawan k WHERE k.jatahCuti = :jatahCuti")
+    , @NamedQuery(name = "Karyawan.findBySisaCuti", query = "SELECT k FROM Karyawan k WHERE k.sisaCuti = :sisaCuti")})
 public class Karyawan implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -56,40 +56,40 @@ public class Karyawan implements Serializable {
     @Basic(optional = false)
     @Column(name = "JATAH_CUTI")
     private BigInteger jatahCuti;
-    @Basic(optional = false)
-    @Column(name = "ID_ROLE")
-    private String idRole;
     @Column(name = "SISA_CUTI")
     private BigInteger sisaCuti;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idKaryawan")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idKaryawan", fetch = FetchType.LAZY)
     private List<Dtcuti> dtcutiList;
     @JoinColumn(name = "ID_JABATAN", referencedColumnName = "ID_JABATAN")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Jabatan idJabatan;
+    @JoinColumn(name = "ID_ROLE", referencedColumnName = "ID_ROLE")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private Role idRole;
 
-    public Karyawan(BigDecimal idKaryawan, String namaKaryawan, String email, String alamat, BigInteger jatahCuti, String idRole, BigInteger sisaCuti, List<Dtcuti> dtcutiList, Jabatan idJabatan) {
+    public Karyawan() {
+    }
+
+    public Karyawan(BigDecimal idKaryawan, String namaKaryawan, String email, String alamat, BigInteger jatahCuti, BigInteger sisaCuti, Jabatan idJabatan, Role idRole) {
         this.idKaryawan = idKaryawan;
         this.namaKaryawan = namaKaryawan;
         this.email = email;
         this.alamat = alamat;
         this.jatahCuti = jatahCuti;
-        this.idRole = idRole;
         this.sisaCuti = sisaCuti;
-        this.dtcutiList = dtcutiList;
         this.idJabatan = idJabatan;
+        this.idRole = idRole;
     }
 
-    public Karyawan() {
-    }
-
+    
+    
     public Karyawan(BigDecimal idKaryawan) {
         this.idKaryawan = idKaryawan;
     }
 
-    public Karyawan(BigDecimal idKaryawan, BigInteger jatahCuti, String idRole) {
+    public Karyawan(BigDecimal idKaryawan, BigInteger jatahCuti) {
         this.idKaryawan = idKaryawan;
         this.jatahCuti = jatahCuti;
-        this.idRole = idRole;
     }
 
     public BigDecimal getIdKaryawan() {
@@ -132,14 +132,6 @@ public class Karyawan implements Serializable {
         this.jatahCuti = jatahCuti;
     }
 
-    public String getIdRole() {
-        return idRole;
-    }
-
-    public void setIdRole(String idRole) {
-        this.idRole = idRole;
-    }
-
     public BigInteger getSisaCuti() {
         return sisaCuti;
     }
@@ -165,6 +157,14 @@ public class Karyawan implements Serializable {
         this.idJabatan = idJabatan;
     }
 
+    public Role getIdRole() {
+        return idRole;
+    }
+
+    public void setIdRole(Role idRole) {
+        this.idRole = idRole;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -187,7 +187,7 @@ public class Karyawan implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.Karyawan_1[ idKaryawan=" + idKaryawan + " ]";
+        return "entities.Karyawan[ idKaryawan=" + idKaryawan + " ]";
     }
     
 }

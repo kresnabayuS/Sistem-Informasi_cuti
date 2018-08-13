@@ -44,7 +44,7 @@ Contributor(s):
     <property name="hibernate.connection.driver_class">oracle.jdbc.OracleDriver</property>
     <property name="hibernate.connection.url">jdbc:oracle:thin:@localhost:1521:XE</property>
     <property name="hibernate.connection.username">system</property>
-    <property name="hibernate.connection.password">k1R3aw5G</property>
+    <property name="hibernate.connection.password">dina</property>
     <property name="hibernate.dialect">org.hibernate.dialect.OracleDialect</property>
     <property name="hibernate.default_schema">cuti</property>
     <property name="hibernate.show_sql">true</property>
@@ -53,9 +53,9 @@ Contributor(s):
     <property name="hibernate.hbm2ddl.auto">update</property>
     <mapping class="entities.Cuti"/>
     <mapping class="entities.CutiKhusus"/>
-    <mapping class="entities.DetailCuti"/>
     <mapping class="entities.Jabatan"/>
     <mapping class="entities.Karyawan"/>
     <mapping class="entities.Role"/>
+    <mapping class="entities.Dtcuti"/>
   </session-factory>
 </hibernate-configuration>
