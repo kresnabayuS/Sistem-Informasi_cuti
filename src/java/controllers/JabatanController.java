@@ -29,8 +29,8 @@ public class JabatanController {
         this.jdao = new JabatanDAO((FunctionDAO) factory);
     }
     
-    public boolean saveOrEdit(String idJabatan, String namaJabatan, List<Karyawan> karyawanList){
-        Jabatan jabatan = new Jabatan(idJabatan, namaJabatan, karyawanList);
+    public boolean saveOrEdit(String idJabatan, String namaJabatan){
+        Jabatan jabatan = new Jabatan(idJabatan, namaJabatan);
         return this.jdao.insertOrUpdate(jabatan);
     }
     
