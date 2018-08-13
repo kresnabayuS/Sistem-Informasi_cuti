@@ -31,7 +31,7 @@ public class KaryawanController {
     }
     
     public KaryawanController(SessionFactory factory) {
-        this.kdao = new KaryawanDAO((FunctionDAO) factory);
+        this.kdao = new KaryawanDAO(factory);
     }
     
     public boolean saveOrEdit(BigDecimal idKaryawan, String namaKaryawan, String email, String alamat, BigInteger jatahCuti, BigInteger sisaCuti, Jabatan idJabatan, Role idRole){

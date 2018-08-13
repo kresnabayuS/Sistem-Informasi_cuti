@@ -28,7 +28,7 @@ public class DtcutiController {
     }
     
     public DtcutiController(SessionFactory factory) {
-        this.ddao = new DtcutiDAO((FunctionDAO) factory);
+        this.ddao = new DtcutiDAO(factory);
     }
     
     public boolean saveOrEdit(String idDtcuti, String status, BigInteger lamaCuti, Cuti idCuti, Karyawan idKaryawan){

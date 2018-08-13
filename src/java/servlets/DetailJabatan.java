@@ -14,14 +14,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import org.hibernate.Hibernate;
 import tools.HibernateUtil;
 
 /**
  *
  * @author Simbok_pc
  */
-public class JabatanViewServlet extends HttpServlet {
+public class DetailJabatan extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,14 +34,16 @@ public class JabatanViewServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        HttpSession session = request.getSession();
-        RequestDispatcher dispatcher = null;
+        
+        String id = request.getParameter("idJabatan");
         JabatanController jc = new JabatanController(HibernateUtil.getSessionFactory());
+        HttpSession session = request.getSession();
+        RequestDispatcher dis = null;
         
         try (PrintWriter out = response.getWriter()) {
-            session.setAttribute("id", jc.getAll());
-            dispatcher = request.getRequestDispatcher("views/jabatanView.jsp");
-            dispatcher.forward(request, response);
+            session.setAttribute("id", jc.getById(id));
+            dis = request.getRequestDispatcher("views/detailJabatan.jsp");
+            dis.forward(request, response);
         }
     }
 
@@ -84,4 +85,5 @@ public class JabatanViewServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
 }

@@ -8,6 +8,14 @@
         <servlet-name>JabatanServlet</servlet-name>
         <servlet-class>servlets.JabatanServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>EditJabatanServlet</servlet-name>
+        <servlet-class>servlets.EditJabatanServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DetailJabatan</servlet-name>
+        <servlet-class>servlets.DetailJabatan</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>JabatanViewServlet</servlet-name>
         <url-pattern>/jabatanViewServlet</url-pattern>
@@ -15,6 +23,14 @@
     <servlet-mapping>
         <servlet-name>JabatanServlet</servlet-name>
         <url-pattern>/jabatanServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditJabatanServlet</servlet-name>
+        <url-pattern>/editJabatanServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DetailJabatan</servlet-name>
+        <url-pattern>/detailJabatan</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

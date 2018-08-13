@@ -6,6 +6,9 @@
 package tools;
 
 import controllers.JabatanController;
+import controllers.KaryawanController;
+import entities.Jabatan;
+import entities.Karyawan;
 
 /**
  *
@@ -13,16 +16,25 @@ import controllers.JabatanController;
  */
 public class MyTester {
     
-     public static void main(String[] args) {
+    public static void main(String[] args) {
         System.out.println(HibernateUtil.getSessionFactory());
          System.out.println("Berhasil");
          JabatanController jc = new JabatanController(
                 HibernateUtil.getSessionFactory());
+         KaryawanController kc = new KaryawanController(
+                HibernateUtil.getSessionFactory());
+        
          
-//    for (Jabatan jabatan : jc.getAll()) {
-////        for (Job job : jc.search("jobId", "AD")) {
-//            System.out.println(jabatan.getIdJabatan
-//                    +" - "+job.get());
-//        }
-}
+    for (Jabatan jabatan : jc.getAll()) {
+
+            System.out.println(jabatan.getIdJabatan()
+                   +" - "+jabatan.getNamaJabatan());
+        }
+    
+    for (Karyawan karyawan : kc.getAll()) {
+//        for (Job job : jc.search("jobId", "AD")) {
+            System.out.println(karyawan.getIdKaryawan()
+                    +" - "+karyawan.getNamaKaryawan());
+        }
+    }
 }

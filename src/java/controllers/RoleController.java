@@ -25,7 +25,7 @@ public class RoleController {
     }
     
     public RoleController(SessionFactory factory) {
-        this.rdao = new RoleDAO((FunctionDAO) factory);
+        this.rdao = new RoleDAO(factory);
     }
     
     public boolean saveOrEdit(String idRole, String namaRole){

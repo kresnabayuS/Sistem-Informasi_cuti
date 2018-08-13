@@ -7,6 +7,8 @@ package daos;
 
 import entities.Role;
 import java.util.List;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 
 /**
  *
@@ -16,8 +18,8 @@ public class RoleDAO {
     
     private FunctionDAO fdao;
 
-    public RoleDAO(FunctionDAO fdao) {
-        this.fdao = fdao;
+    public RoleDAO(SessionFactory factory) {
+        this.fdao = new FunctionDAO(factory);
     }
     
     public boolean insertOrUpdate(Role role){

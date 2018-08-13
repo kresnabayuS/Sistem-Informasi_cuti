@@ -27,7 +27,7 @@ public class CutiKhususController {
     }
 
     public CutiKhususController(SessionFactory factory) {
-        this.ckdao = new CutiKhususDAO((FunctionDAO) factory);
+        this.ckdao = new CutiKhususDAO(factory);
     }
     
     public boolean saveOrEdit(String idCutiKhusus, String keteranganCuti, BigInteger lamaCutiKhusus){

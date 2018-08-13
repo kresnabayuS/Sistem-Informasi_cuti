@@ -7,6 +7,8 @@ package daos;
 
 import entities.Dtcuti;
 import java.util.List;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 
 /**
  *
@@ -16,8 +18,8 @@ public class DtcutiDAO {
     
     private FunctionDAO fdao;
 
-    public DtcutiDAO(FunctionDAO fdao) {
-        this.fdao = fdao;
+    public DtcutiDAO(SessionFactory factory) {
+        this.fdao = new FunctionDAO(factory);
     }
     
     public boolean insertOrUpdate(Dtcuti dtcuti){

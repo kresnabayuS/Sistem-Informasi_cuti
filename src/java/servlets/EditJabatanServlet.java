@@ -21,7 +21,7 @@ import tools.HibernateUtil;
  *
  * @author Simbok_pc
  */
-public class JabatanViewServlet extends HttpServlet {
+public class EditJabatanServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,14 +35,16 @@ public class JabatanViewServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        HttpSession session = request.getSession();
-        RequestDispatcher dispatcher = null;
-        JabatanController jc = new JabatanController(HibernateUtil.getSessionFactory());
+        String id = request.getParameter("txtIdJabatan");
+        String name = request.getParameter("txtNamaJabatan");
         
         try (PrintWriter out = response.getWriter()) {
-            session.setAttribute("id", jc.getAll());
-            dispatcher = request.getRequestDispatcher("views/jabatanView.jsp");
-            dispatcher.forward(request, response);
+            JabatanController jc = new JabatanController(HibernateUtil.getSessionFactory());
+            if(jc.saveOrEdit(id, name)){
+                out.println("Selamat, Edit Berhasil!");
+            }else{
+                out.println("Coba Lagi!");
+            }
         }
     }
 
@@ -84,4 +86,5 @@ public class JabatanViewServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
 }

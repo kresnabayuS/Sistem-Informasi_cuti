@@ -12,10 +12,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Data Jabatan</title>
+        <title>Jabatan</title>
     </head>
     <body>
-        <h1>Data Jabatan!</h1>
+        <h1>Data Jabatan</h1>
          <% JabatanController jc = new JabatanController(HibernateUtil.getSessionFactory()); %>
          <p>
          <select name="cmbCategory">
@@ -29,6 +29,7 @@
                     <th>No</th>
                     <th>Jabatan ID</th>
                     <th>Jabatan Title</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             
@@ -39,8 +40,13 @@
                     <td><%= i %></td>
                     <td><%= jabatan.getIdJabatan() %></td>
                     <td><%= jabatan.getNamaJabatan() %></td>
+                    <td>
+                        <a href="../jabatanServlet?id=<%= jabatan.getIdJabatan()%>">Edit</a>
+                        <a href="../detailJabatan?idJabatan=<%=jabatan.getIdJabatan()%>"> | Lihat Details</a>
+                    </td>
                 </tr>
                 <% i++; }%>
             </tbody>
+        </table>    
     </body>
 </html>
