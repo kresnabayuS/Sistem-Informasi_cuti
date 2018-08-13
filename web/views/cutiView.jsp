@@ -40,14 +40,13 @@
                     <td><%= cuti.getTanggalAwal() %></td>
                     <td><%= cuti.getTanggalAkhir() %></td>
                     <td><%= cuti.getKeterangan() %></td>
-                    <td><%= cuti.getIdCutiKhusus().getNamaCuti() %></td>
                 </tr>
+                 <%
+                        i++;
+                     }
+                 %>
                 <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    
                 </tr>
             </tbody>
         </table>

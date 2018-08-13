@@ -35,8 +35,13 @@
                     <td><%= i %></td>
                     <td><%= cutiKhusus.getIdCutiKhusus() %></td>
                     <td><%= cutiKhusus.getNamaCuti() %></td>
-                    <td><%= cutiKhusus.getLamaCutiKhusus() %></td>
-                    <td></td>
+                    <td><% if(cutiKhusus.getLamaCutiKhusus() == null) {
+                                out.print("0");
+                            } else {
+                                out.print(cutiKhusus.getLamaCutiKhusus());
+                            }
+                        %>
+                    </td>
                 </tr>
                 <% i++; }%>
             </tbody>
