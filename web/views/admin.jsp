@@ -108,7 +108,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="karyawanView.jsp" >
+                    <a class="nav-link" href="jabatanView.jsp" >
                         <i class="fas fa-fw fa-table"></i>
                         <span>Data Karyawan</span>
                     </a>
@@ -202,9 +202,6 @@
                     </div>
 
 
-
-
-
                     <!-- DataTables Example -->
 
                     <div class="card mb-3">
@@ -266,7 +263,7 @@
                 <div class="modal fade" id="modaltambah" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
-                            <form action="../../addJabatanServlet" method="POST">
+                            <form action="../addJabatanServlet" method="POST">
                                 <div class="modal-header text-center">
                                     <h4 class="modal-title w-100 font-weight-bold">Add Data</h4>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -282,7 +279,7 @@
                                     </div>
 
                                     <div class="md-form mb-5">
-                                        <i class="fa fa-phone"></i>
+                                        <i class="fa fa-user prefix grey-text"></i>
                                         <label data-error="wrong" data-success="right" for="orangeForm-name"  >Jabatan Title</label>
                                         <input type="text" id="orangeForm-name" class="form-control validate" name="txtNamaJabatan">
 
