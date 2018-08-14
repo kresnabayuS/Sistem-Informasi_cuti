@@ -16,6 +16,10 @@
         <servlet-name>DetailJabatan</servlet-name>
         <servlet-class>servlets.DetailJabatan</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AddJabatanServlet</servlet-name>
+        <servlet-class>servlets.AddJabatanServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>JabatanViewServlet</servlet-name>
         <url-pattern>/jabatanViewServlet</url-pattern>
@@ -31,6 +35,10 @@
     <servlet-mapping>
         <servlet-name>DetailJabatan</servlet-name>
         <url-pattern>/detailJabatan</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddJabatanServlet</servlet-name>
+        <url-pattern>/addJabatanServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

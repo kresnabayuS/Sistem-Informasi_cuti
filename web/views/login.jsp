@@ -56,7 +56,7 @@
                                 </label>
                             </div>
                         </div>
-                        <a class="btn btn-primary btn-block" href="index.html">Login</a>
+                        <a class="btn btn-primary btn-block" href="admin.jsp">Login</a>
                     </form>
                     <div class="text-center">
                         <a class="d-block small mt-3" href="register.jsp">Register an Account</a>
@@ -67,11 +67,11 @@
         </div>
 
         <!-- Bootstrap core JavaScript-->
-        <script src="vendor/jquery/jquery.min.js"></script>
-        <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="../vendor/jquery/jquery.min.js"></script>
+        <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
         <!-- Core plugin JavaScript-->
-        <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+        <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
 
     </body>
 

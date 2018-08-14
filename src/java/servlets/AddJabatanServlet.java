@@ -13,15 +13,13 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import org.hibernate.Hibernate;
 import tools.HibernateUtil;
 
 /**
  *
- * @author Simbok_pc
+ * @author kresna bayu
  */
-public class EditJabatanServlet extends HttpServlet {
+public class AddJabatanServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,17 +33,19 @@ public class EditJabatanServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-       
+        
         String id = request.getParameter("txtIdJabatan");
         String name = request.getParameter("txtNamaJabatan");
+        RequestDispatcher dispatcher = null;
         
         try (PrintWriter out = response.getWriter()) {
             JabatanController jc = new JabatanController(HibernateUtil.getSessionFactory());
-            if(jc.saveOrEdit(id, name)){
-                out.println("Selamat, Edit Berhasil!");
-            }else{
-                out.println("Coba Lagi!");
-            }
+              if(jc.saveOrEdit(id, name)){
+                  out.print("sukses tambah");
+            } else {
+                out.print("gagal tambah");
+              }
+               response.sendRedirect("views/admin.jsp");
         }
     }
 
