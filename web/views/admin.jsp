@@ -109,7 +109,7 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="jabatanView.jsp" >
-                        <i class="fas fa-fw fa-table"></i>
+                          <i class="fas fa-fw fa-user-friends"></i>
                         <span>Data Karyawan</span>
                     </a>
 
@@ -210,7 +210,7 @@
                             <i class="fas fa-table"></i>
                             Data Table Example</div>
                         <div class="card-body">
-
+                            <!--Button Add-->
                             <div class="container-login100-form-btn">
                                 <a class="btn btn-success" href="" data-toggle="modal"
                                    data-target="#modaltambah">Add Data </a>
