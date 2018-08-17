@@ -21,7 +21,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Simbok_pc
+ * @author kresna bayu
  */
 @Entity
 @Table(name = "DTCUTI")
@@ -47,11 +47,8 @@ public class Dtcuti implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     private Cuti idCuti;
     @JoinColumn(name = "ID_KARYAWAN", referencedColumnName = "ID_KARYAWAN")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Karyawan idKaryawan;
-
-    public Dtcuti() {
-    }
 
     public Dtcuti(String idDtcuti, String status, BigInteger lamaCuti, Cuti idCuti, Karyawan idKaryawan) {
         this.idDtcuti = idDtcuti;
@@ -60,9 +57,10 @@ public class Dtcuti implements Serializable {
         this.idCuti = idCuti;
         this.idKaryawan = idKaryawan;
     }
-    
-    
-    
+
+    public Dtcuti() {
+    }
+
     public Dtcuti(String idDtcuti) {
         this.idDtcuti = idDtcuti;
     }

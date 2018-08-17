@@ -13,8 +13,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -26,7 +24,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Simbok_pc
+ * @author kresna bayu
  */
 @Entity
 @Table(name = "CUTI")
@@ -44,34 +42,37 @@ public class Cuti implements Serializable {
     @Basic(optional = false)
     @Column(name = "ID_CUTI")
     private String idCuti;
+    @Basic(optional = false)
     @Column(name = "TANGGAL_AWAL")
     @Temporal(TemporalType.TIMESTAMP)
     private Date tanggalAwal;
+    @Basic(optional = false)
     @Column(name = "TANGGAL_AKHIR")
     @Temporal(TemporalType.TIMESTAMP)
     private Date tanggalAkhir;
     @Column(name = "KETERANGAN")
     private String keterangan;
-    @JoinColumn(name = "ID_CUTI_KHUSUS", referencedColumnName = "ID_CUTI_KHUSUS")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private CutiKhusus idCutiKhusus;
     @OneToMany(mappedBy = "idCuti", fetch = FetchType.LAZY)
     private List<Dtcuti> dtcutiList;
 
-    public Cuti() {
-    }
-
-    public Cuti(String idCuti, Date tanggalAwal, Date tanggalAkhir, String keterangan, CutiKhusus idCutiKhusus) {
+    public Cuti(String idCuti, Date tanggalAwal, Date tanggalAkhir, String keterangan) {
         this.idCuti = idCuti;
         this.tanggalAwal = tanggalAwal;
         this.tanggalAkhir = tanggalAkhir;
         this.keterangan = keterangan;
-        this.idCutiKhusus = idCutiKhusus;
     }
 
-    
+    public Cuti() {
+    }
+
     public Cuti(String idCuti) {
         this.idCuti = idCuti;
+    }
+
+    public Cuti(String idCuti, Date tanggalAwal, Date tanggalAkhir) {
+        this.idCuti = idCuti;
+        this.tanggalAwal = tanggalAwal;
+        this.tanggalAkhir = tanggalAkhir;
     }
 
     public String getIdCuti() {
@@ -104,14 +105,6 @@ public class Cuti implements Serializable {
 
     public void setKeterangan(String keterangan) {
         this.keterangan = keterangan;
-    }
-
-    public CutiKhusus getIdCutiKhusus() {
-        return idCutiKhusus;
-    }
-
-    public void setIdCutiKhusus(CutiKhusus idCutiKhusus) {
-        this.idCutiKhusus = idCutiKhusus;
     }
 
     @XmlTransient

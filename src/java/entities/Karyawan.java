@@ -6,11 +6,9 @@
 package entities;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -26,7 +24,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Simbok_pc
+ * @author kresna bayu
  */
 @Entity
 @Table(name = "KARYAWAN")
@@ -38,17 +36,18 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Karyawan.findByEmail", query = "SELECT k FROM Karyawan k WHERE k.email = :email")
     , @NamedQuery(name = "Karyawan.findByAlamat", query = "SELECT k FROM Karyawan k WHERE k.alamat = :alamat")
     , @NamedQuery(name = "Karyawan.findByJatahCuti", query = "SELECT k FROM Karyawan k WHERE k.jatahCuti = :jatahCuti")
-    , @NamedQuery(name = "Karyawan.findBySisaCuti", query = "SELECT k FROM Karyawan k WHERE k.sisaCuti = :sisaCuti")})
+    , @NamedQuery(name = "Karyawan.findBySisaCuti", query = "SELECT k FROM Karyawan k WHERE k.sisaCuti = :sisaCuti")
+    , @NamedQuery(name = "Karyawan.findByPassword", query = "SELECT k FROM Karyawan k WHERE k.password = :password")})
 public class Karyawan implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
     @Basic(optional = false)
     @Column(name = "ID_KARYAWAN")
-    private BigDecimal idKaryawan;
+    private String idKaryawan;
     @Column(name = "NAMA_KARYAWAN")
     private String namaKaryawan;
+    @Basic(optional = false)
     @Column(name = "EMAIL")
     private String email;
     @Column(name = "ALAMAT")
@@ -58,8 +57,13 @@ public class Karyawan implements Serializable {
     private BigInteger jatahCuti;
     @Column(name = "SISA_CUTI")
     private BigInteger sisaCuti;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idKaryawan", fetch = FetchType.LAZY)
+    @Basic(optional = false)
+    @Column(name = "PASSWORD")
+    private String password;
+    @OneToMany(mappedBy = "idKaryawan", fetch = FetchType.LAZY)
     private List<Dtcuti> dtcutiList;
+    @OneToMany(mappedBy = "idKaryawan", fetch = FetchType.LAZY)
+    private List<Dtcutikhusus> dtcutikhususList;
     @JoinColumn(name = "ID_JABATAN", referencedColumnName = "ID_JABATAN")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Jabatan idJabatan;
@@ -67,36 +71,37 @@ public class Karyawan implements Serializable {
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Role idRole;
 
-    public Karyawan() {
-    }
-
-    public Karyawan(BigDecimal idKaryawan, String namaKaryawan, String email, String alamat, BigInteger jatahCuti, BigInteger sisaCuti, Jabatan idJabatan, Role idRole) {
+    public Karyawan(String idKaryawan, String namaKaryawan, String email, String alamat, BigInteger jatahCuti, BigInteger sisaCuti, String password, Jabatan idJabatan, Role idRole) {
         this.idKaryawan = idKaryawan;
         this.namaKaryawan = namaKaryawan;
         this.email = email;
         this.alamat = alamat;
         this.jatahCuti = jatahCuti;
         this.sisaCuti = sisaCuti;
+        this.password = password;
         this.idJabatan = idJabatan;
         this.idRole = idRole;
     }
 
-    
-    
-    public Karyawan(BigDecimal idKaryawan) {
+    public Karyawan() {
+    }
+
+    public Karyawan(String idKaryawan) {
         this.idKaryawan = idKaryawan;
     }
 
-    public Karyawan(BigDecimal idKaryawan, BigInteger jatahCuti) {
+    public Karyawan(String idKaryawan, String email, BigInteger jatahCuti, String password) {
         this.idKaryawan = idKaryawan;
+        this.email = email;
         this.jatahCuti = jatahCuti;
+        this.password = password;
     }
 
-    public BigDecimal getIdKaryawan() {
+    public String getIdKaryawan() {
         return idKaryawan;
     }
 
-    public void setIdKaryawan(BigDecimal idKaryawan) {
+    public void setIdKaryawan(String idKaryawan) {
         this.idKaryawan = idKaryawan;
     }
 
@@ -140,6 +145,14 @@ public class Karyawan implements Serializable {
         this.sisaCuti = sisaCuti;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     @XmlTransient
     public List<Dtcuti> getDtcutiList() {
         return dtcutiList;
@@ -147,6 +160,15 @@ public class Karyawan implements Serializable {
 
     public void setDtcutiList(List<Dtcuti> dtcutiList) {
         this.dtcutiList = dtcutiList;
+    }
+
+    @XmlTransient
+    public List<Dtcutikhusus> getDtcutikhususList() {
+        return dtcutikhususList;
+    }
+
+    public void setDtcutikhususList(List<Dtcutikhusus> dtcutikhususList) {
+        this.dtcutikhususList = dtcutikhususList;
     }
 
     public Jabatan getIdJabatan() {

@@ -31,8 +31,8 @@ public class CutiController {
         this.cdao = new CutiDAO(factory);
     }
     
-    public boolean saveOrEdit(String idCuti, Date tanggalAwal, Date tanggalAkhir, String keterangan, CutiKhusus idCutiKhusus){
-        Cuti cuti = new Cuti(idCuti, tanggalAwal, tanggalAkhir, keterangan, idCutiKhusus);
+    public boolean saveOrEdit(String idCuti, Date tanggalAwal, Date tanggalAkhir, String keterangan){
+        Cuti cuti = new Cuti(idCuti, tanggalAwal, tanggalAkhir, keterangan);
         return this.cdao.insertOrUpdate(cuti);
     }
     

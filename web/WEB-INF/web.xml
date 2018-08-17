@@ -20,6 +20,10 @@
         <servlet-name>AddJabatanServlet</servlet-name>
         <servlet-class>servlets.AddJabatanServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ValidationServlet</servlet-name>
+        <servlet-class>servlets.ValidationServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>JabatanViewServlet</servlet-name>
         <url-pattern>/jabatanViewServlet</url-pattern>
@@ -40,12 +44,16 @@
         <servlet-name>AddJabatanServlet</servlet-name>
         <url-pattern>/addJabatanServlet</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ValidationServlet</servlet-name>
+        <url-pattern>/validationServlet</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>index.html</welcome-file>
+        <welcome-file>views/login.jsp</welcome-file>
     </welcome-file-list>
 </web-app>

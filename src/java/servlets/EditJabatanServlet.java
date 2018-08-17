@@ -46,6 +46,7 @@ public class EditJabatanServlet extends HttpServlet {
             }else{
                 out.println("Coba Lagi!");
             }
+             response.sendRedirect("views/jabatanView");
         }
     }
 

@@ -22,7 +22,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Simbok_pc
+ * @author kresna bayu
  */
 @Entity
 @Table(name = "JABATAN")
@@ -43,15 +43,13 @@ public class Jabatan implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idJabatan", fetch = FetchType.LAZY)
     private List<Karyawan> karyawanList;
 
-    public Jabatan() {
-    }
-
     public Jabatan(String idJabatan, String namaJabatan) {
         this.idJabatan = idJabatan;
         this.namaJabatan = namaJabatan;
     }
-    
-    
+
+    public Jabatan() {
+    }
 
     public Jabatan(String idJabatan) {
         this.idJabatan = idJabatan;

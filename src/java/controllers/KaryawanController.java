@@ -5,17 +5,15 @@
  */
 package controllers;
 
-import daos.FunctionDAO;
 import daos.KaryawanDAO;
-import entities.Dtcuti;
 import entities.Jabatan;
 import entities.Karyawan;
 import entities.Role;
-import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.SessionFactory;
+import method.BCrypt;
 
 /**
  *
@@ -34,10 +32,15 @@ public class KaryawanController {
         this.kdao = new KaryawanDAO(factory);
     }
     
-    public boolean saveOrEdit(BigDecimal idKaryawan, String namaKaryawan, String email, String alamat, BigInteger jatahCuti, BigInteger sisaCuti, Jabatan idJabatan, Role idRole){
-        Karyawan karyawan = new Karyawan(idKaryawan, namaKaryawan, email, alamat, jatahCuti, sisaCuti, idJabatan, idRole);
+    public boolean saveOrEdit(String idKaryawan, String namaKaryawan, String email, String alamat, BigInteger jatahCuti, BigInteger sisaCuti, String password, Jabatan idJabatan, Role idRole){
+        Karyawan karyawan = new Karyawan(idKaryawan, namaKaryawan, email, alamat, jatahCuti, sisaCuti, password, idJabatan, idRole);
         return this.kdao.insertOrUpdate(karyawan);
     }
+    
+  public boolean login(String category,String email, String password){
+        Karyawan karyawan = (Karyawan) kdao.search(category, email).get(0);
+        return BCrypt.checkpw(password, karyawan.getPassword());
+    }    
     
     private List<Karyawan> convertToListKaryawan(List<Object> dataAwal) {
         List<Karyawan> datas = new ArrayList<>();

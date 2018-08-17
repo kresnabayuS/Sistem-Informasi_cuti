@@ -11,6 +11,7 @@ import entities.Cuti;
 import entities.CutiKhusus;
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -30,8 +31,8 @@ public class CutiKhususController {
         this.ckdao = new CutiKhususDAO(factory);
     }
     
-    public boolean saveOrEdit(String idCutiKhusus, String keteranganCuti, BigInteger lamaCutiKhusus){
-        CutiKhusus cutiKhusus = new CutiKhusus(idCutiKhusus, keteranganCuti, lamaCutiKhusus);
+    public boolean saveOrEdit(String idCutiKhusus, String namaCuti, BigInteger lamaCutiKhusus, Date tanggalAwal, Date tanggalAkhir){
+        CutiKhusus cutiKhusus = new CutiKhusus(idCutiKhusus, namaCuti, lamaCutiKhusus,tanggalAwal, tanggalAkhir);
         return this.ckdao.insertOrUpdate(cutiKhusus);
     }
     

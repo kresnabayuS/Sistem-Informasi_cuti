@@ -7,7 +7,6 @@ package daos;
 
 import entities.Karyawan;
 import java.util.List;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 /**

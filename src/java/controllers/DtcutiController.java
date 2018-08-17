@@ -32,7 +32,7 @@ public class DtcutiController {
     }
     
     public boolean saveOrEdit(String idDtcuti, String status, BigInteger lamaCuti, Cuti idCuti, Karyawan idKaryawan){
-        Dtcuti dtcuti = new Dtcuti(idDtcuti, status, lamaCuti, idCuti, idKaryawan);
+        Dtcuti dtcuti = new Dtcuti(idDtcuti, status, lamaCuti, idCuti,idKaryawan);
         return this.ddao.insertOrUpdate(dtcuti);
     }
     

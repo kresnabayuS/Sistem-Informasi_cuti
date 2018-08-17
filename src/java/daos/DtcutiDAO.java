@@ -26,9 +26,16 @@ public class DtcutiDAO {
         return this.fdao.insertOrUpdate(dtcuti);
     }
     
-    public List<Object> getAll(){
-        return this.fdao.get("FROM Dtcuti");
-    }
+     public List<Object> getAll(){
+         return this.fdao.get("SELECT FROM Dtcuti");
+     }
+//    public List<Object> getAll(){
+//        return this.fdao.get("SELECT d.id_dtcuti, k.nama_karyawan, j.nama_jabatan, k.email, c.tanggal_awal, c.tanggal_akhir, d.lama_cuti, c.keterangan, d.status FROM Dtcuti d JOIN Cuti c ON d.id_cuti=c.id_cuti JOIN Karyawan k ON d.id_karyawan=k.id_karyawan JOIN Jabatan j ON k.id_jabatan=j.id_jabatan;");
+//    }
+    
+//    public List<Object[]> getAllSort(String category, String sort){
+//        return this.fdao.get("SELECT d.id_dtcuti, k.nama_karyawan, j.nama_jabatan, k.email, c.tanggal_awal, c.tanggal_akhir, d.lama_cuti, c.keterangan, d.status FROM Dtcuti d JOIN Cuti c ON d.id_cuti=c.id_cuti JOIN Karyawan k ON d.id_karyawan=k.id_karyawan JOIN Jabatan j ON k.id_jabatan=j.id_jabatan;");
+//    }
     
      public Dtcuti getById(String idDtcuti) {
         return (Dtcuti) this.fdao.getById("FROM Dtcuti WHERE idDtcuti='" + idDtcuti + "'");

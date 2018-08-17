@@ -8,6 +8,7 @@
     <class>entities.Jabatan</class>
     <class>entities.Karyawan</class>
     <class>entities.Role</class>
+    <class>entities.Dtcutikhusus</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:oracle:thin:@localhost:1521:XE"/>

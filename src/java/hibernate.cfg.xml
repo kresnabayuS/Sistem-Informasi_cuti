@@ -53,9 +53,10 @@ Contributor(s):
     <property name="hibernate.hbm2ddl.auto">update</property>
     <mapping class="entities.Cuti"/>
     <mapping class="entities.CutiKhusus"/>
+    <mapping class="entities.Dtcuti"/>
+    <mapping class="entities.Dtcutikhusus"/>
     <mapping class="entities.Jabatan"/>
     <mapping class="entities.Karyawan"/>
     <mapping class="entities.Role"/>
-    <mapping class="entities.Dtcuti"/>
   </session-factory>
 </hibernate-configuration>

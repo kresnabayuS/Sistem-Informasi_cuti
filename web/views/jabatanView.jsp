@@ -178,19 +178,16 @@
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
-                                <div class="modal-body mx-3">
+                                <div class="modal-body mx-3">                                   
                                     <div class="md-form mb-5">
                                         <i class="fa fa-user prefix grey-text"></i>
                                         <label data-error="wrong" data-success="right" for="orangeForm-name">Jabatan ID</label>
                                         <input  type="text" id="orangeForm-name" class="form-control validate" name="txtIdJabatan">
-
                                     </div>
-
                                     <div class="md-form mb-5">
                                         <i class="fa fa-user prefix grey-text"></i>
                                         <label data-error="wrong" data-success="right" for="orangeForm-name"  >Jabatan Title</label>
                                         <input type="text" id="orangeForm-name" class="form-control validate" name="txtNamaJabatan">
-
                                     </div>
                                 </div>
                                 <div class="modal-footer d-flex justify-content-center">

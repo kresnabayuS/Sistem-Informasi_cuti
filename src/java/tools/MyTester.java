@@ -9,32 +9,40 @@ import controllers.JabatanController;
 import controllers.KaryawanController;
 import entities.Jabatan;
 import entities.Karyawan;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import method.BCrypt;
 
 /**
  *
  * @author Simbok_pc
  */
 public class MyTester {
-    
-    public static void main(String[] args) {
-        System.out.println(HibernateUtil.getSessionFactory());
-         System.out.println("Berhasil");
-         JabatanController jc = new JabatanController(
-                HibernateUtil.getSessionFactory());
-         KaryawanController kc = new KaryawanController(
-                HibernateUtil.getSessionFactory());
-        
-         
-    for (Jabatan jabatan : jc.getAll()) {
 
-            System.out.println(jabatan.getIdJabatan()
-                   +" - "+jabatan.getNamaJabatan());
+    private static int workload = 10;
+
+    public static String hashPassword(String password_plaintext) {
+        String salt = BCrypt.gensalt(workload);
+        String hashed_password = BCrypt.hashpw(password_plaintext, salt);
+        return (hashed_password);
+    }
+
+    public static void checkPass(String plainPassword, String hashedPassword) {
+        if (BCrypt.checkpw(plainPassword, hashedPassword)) {
+            System.out.println("Password Matched");
+        } else {
+            System.out.println("Password Doesnt Match");
         }
-    
-    for (Karyawan karyawan : kc.getAll()) {
-//        for (Job job : jc.search("jobId", "AD")) {
-            System.out.println(karyawan.getIdKaryawan()
-                    +" - "+karyawan.getNamaKaryawan());
-        }
+    }
+
+    public static void main(String[] args) {
+        String password = "kresna";
+        Date date = new Date();
+        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        DateFormat jam = new SimpleDateFormat("HH:mm:ss");
+        String dateString = dateFormat.format(date);
+        System.out.println("ChiperPassword dari kresna = "+hashPassword(password));
+        
     }
 }
