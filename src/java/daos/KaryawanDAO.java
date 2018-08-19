@@ -7,6 +7,7 @@ package daos;
 
 import entities.Karyawan;
 import java.util.List;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 /**
@@ -14,26 +15,30 @@ import org.hibernate.SessionFactory;
  * @author Simbok_pc
  */
 public class KaryawanDAO {
-    
+
     private FunctionDAO fdao;
 
     public KaryawanDAO(SessionFactory factory) {
         this.fdao = new FunctionDAO(factory);
     }
-    
-    public boolean insertOrUpdate(Karyawan karyawan){
+
+    public boolean insertOrUpdate(Karyawan karyawan) {
         return this.fdao.insertOrUpdate(karyawan);
     }
-    
+
     public List<Object> getAll() {
-        return this.fdao.get("FROM Karyawan");
+        return this.fdao.get("FROM Karyawan order by id_Karyawan");
     }
-    
+
     public Karyawan getById(String idKaryawan) {
         return (Karyawan) this.fdao.getById("FROM Karyawan WHERE idKaryawan='" + idKaryawan + "'");
     }
-    
+
     public List<Object> search(String category, String data) {
         return this.fdao.get("FROM Karyawan WHERE REGEXP_LIKE(" + category + ",'%" + data + "%','i')"); // query tersebut merupakan HQL //
+    }
+
+    public String getIdKaryawan() {
+        return (String) this.fdao.getById("Select CONCAT('K',LPAD((TO_NUMBER(SUBSTR(MAX(id_karyawan),4,3))+1),4, '0')) FROM Karyawan");
     }
 }

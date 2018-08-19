@@ -3,6 +3,10 @@
     Created on : Aug 15, 2018, 3:34:23 PM
     Author     : kresna bayu
 --%>
+
+<%@page import="entities.Jabatan"%>
+<%@page import="tools.HibernateUtil"%>
+<%@page import="controllers.JabatanController"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
@@ -15,6 +19,7 @@
         <meta name="author" content="">
 
         <title>Leave Application</title>
+
 
         <!-- Bootstrap core CSS -->
         <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -69,71 +74,80 @@
         <!-- Portfolio Grid Section -->
         <section class="portfolio" id="portfolio">
             <div class="container">
-                <h2 class="text-center text-uppercase text-secondary mb-0">Portfolio</h2>
+                <h2 class="text-center text-uppercase text-secondary mb-0">Histories Leave Request</h2>
                 <hr class="star-dark mb-5">
-                <div class="row">
-                    <div class="col-md-6 col-lg-4">
-                        <a class="portfolio-item d-block mx-auto" href="#portfolio-modal-1">
-                            <div class="portfolio-item-caption d-flex position-absolute h-100 w-100">
-                                <div class="portfolio-item-caption-content my-auto w-100 text-center text-white">
-                                    <i class="fa fa-search-plus fa-3x"></i>
-                                </div>
+    
+                    <!-- DataTables Example -->
+
+                    <div class="card mb-3">
+                        <div class="card-header">
+
+                            <!--                    <i class="fas fa-table"></i>
+                                                Data Table Example</div>
+                                            <div class="card-body">-->
+                            <!--Button Add-->
+                            <div class="container-login100-form-btn">
+                                <a class="btn btn-success" href="" data-toggle="modal"
+                                   data-target="#modaltambah">Add Data </a>
                             </div>
-                            <img class="img-fluid" src="../images/portfolio/cabin.png" alt="">
-                        </a>
-                    </div>
-                    <div class="col-md-6 col-lg-4">
-                        <a class="portfolio-item d-block mx-auto" href="#portfolio-modal-2">
-                            <div class="portfolio-item-caption d-flex position-absolute h-100 w-100">
-                                <div class="portfolio-item-caption-content my-auto w-100 text-center text-white">
-                                    <i class="fa fa-search-plus fa-3x"></i>
-                                </div>
+                            <% JabatanController jc = new JabatanController(HibernateUtil.getSessionFactory()); %>
+                            <p>
+                            <div class="table-responsive">
+
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+
+                                    <thead>
+                                        <tr>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Jabatan ID</th>
+                                            <th>Jabatan Title</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Jabatan ID</th>
+                                            <th>Jabatan Title</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                        <% int i = 1;
+                    for (Jabatan jabatan : jc.getAll()) {%>                
+                                        <tr>
+                                            <td><%= i %></td>
+                                            <td><%= jabatan.getIdJabatan() %></td>
+                                            <td><%= jabatan.getNamaJabatan() %></td>
+                                            <td>
+                                                <a href="../jabatanServlet?id=<%= jabatan.getIdJabatan()%>">Edit</a>
+                                            </td>
+                                        </tr>
+                                        <% i++; }%>
+                                    </tbody>
+                                </table>
                             </div>
-                            <img class="img-fluid" src="../images/portfolio/cake.png" alt="">
-                        </a>
-                    </div>
-                    <div class="col-md-6 col-lg-4">
-                        <a class="portfolio-item d-block mx-auto" href="#portfolio-modal-3">
-                            <div class="portfolio-item-caption d-flex position-absolute h-100 w-100">
-                                <div class="portfolio-item-caption-content my-auto w-100 text-center text-white">
-                                    <i class="fa fa-search-plus fa-3x"></i>
-                                </div>
-                            </div>
-                            <img class="img-fluid" src="../images/portfolio/circus.png" alt="">
-                        </a>
-                    </div>
-                    <div class="col-md-6 col-lg-4">
-                        <a class="portfolio-item d-block mx-auto" href="#portfolio-modal-4">
-                            <div class="portfolio-item-caption d-flex position-absolute h-100 w-100">
-                                <div class="portfolio-item-caption-content my-auto w-100 text-center text-white">
-                                    <i class="fa fa-search-plus fa-3x"></i>
-                                </div>
-                            </div>
-                            <img class="img-fluid" src="../images/portfolio/game.png" alt="">
-                        </a>
-                    </div>
-                    <div class="col-md-6 col-lg-4">
-                        <a class="portfolio-item d-block mx-auto" href="#portfolio-modal-5">
-                            <div class="portfolio-item-caption d-flex position-absolute h-100 w-100">
-                                <div class="portfolio-item-caption-content my-auto w-100 text-center text-white">
-                                    <i class="fa fa-search-plus fa-3x"></i>
-                                </div>
-                            </div>
-                            <img class="img-fluid" src="../images/portfolio/safe.png" alt="">
-                        </a>
-                    </div>
-                    <div class="col-md-6 col-lg-4">
-                        <a class="portfolio-item d-block mx-auto" href="#portfolio-modal-6">
-                            <div class="portfolio-item-caption d-flex position-absolute h-100 w-100">
-                                <div class="portfolio-item-caption-content my-auto w-100 text-center text-white">
-                                    <i class="fa fa-search-plus fa-3x"></i>
-                                </div>
-                            </div>
-                            <img class="img-fluid" src="../images/portfolio/submarine.png" alt="">
-                        </a>
-                    </div>
+                        </div>
+                 
+                    <!--<div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>-->
                 </div>
             </div>
+
+
+            <!--                                <div class="col-md-6 col-lg-4">
+                                                <a class="portfolio-item d-block mx-auto" href="#portfolio-modal-1">
+                                                    <div class="portfolio-item-caption d-flex position-absolute h-100 w-100">
+                                                        <div class="portfolio-item-caption-content my-auto w-100 text-center text-white">
+                                                            <i class="fa fa-search-plus fa-3x"></i>
+                                                        </div>
+                                                    </div>
+                                                    <img class="img-fluid" src="../images/portfolio/cabin.png" alt="">
+                                                </a>
+                                            </div>
+            -->
+
         </section>
 
         <!-- Leave Req Section -->
@@ -380,6 +394,39 @@
         </div>
     </div>
 
+    <!-- modal Add-->
+    <div class="modal fade" id="modaltambah" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form action="../addJabatanServlet" method="POST">
+                    <div class="modal-header text-center">
+                        <h4 class="modal-title w-100 font-weight-bold">Add Data</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body mx-3">
+                        <div class="md-form mb-5">
+                            <i class="fa fa-user prefix grey-text"></i>
+                            <label data-error="wrong" data-success="right" for="orangeForm-name">Jabatan ID</label>
+                            <input  type="text" id="orangeForm-name" class="form-control validate" name="txtIdJabatan">
+
+                        </div>
+
+                        <div class="md-form mb-5">
+                            <i class="fa fa-user prefix grey-text"></i>
+                            <label data-error="wrong" data-success="right" for="orangeForm-name"  >Jabatan Title</label>
+                            <input type="text" id="orangeForm-name" class="form-control validate" name="txtNamaJabatan">
+
+                        </div>
+                    </div>
+                    <div class="modal-footer d-flex justify-content-center">
+                        <button class="btn btn-deep-orange" type="submit">Add</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
     <!-- Bootstrap core JavaScript -->
     <script src="../vendor/jquery/jquery.min.js"></script>
@@ -395,6 +442,8 @@
 
     <!-- Custom scripts for this template -->
     <script src="../js/freelancer.min.js"></script>
+
+    <script src="../js/demo/datatables-demo.js"></script>
 
 </body>
 

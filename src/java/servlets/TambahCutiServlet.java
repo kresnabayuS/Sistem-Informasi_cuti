@@ -5,22 +5,25 @@
  */
 package servlets;
 
-import controllers.CutiKhususController;
+import controllers.CutiController;
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.servlet.RequestDispatcher;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import tools.HibernateUtil;
 
 /**
  *
  * @author Simbok_pc
  */
-public class CutiKhususServlet extends HttpServlet {
+public class TambahCutiServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,15 +37,23 @@ public class CutiKhususServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String id = request.getParameter("id");
-        HttpSession session = request.getSession();
-        CutiKhususController ck = new CutiKhususController(HibernateUtil.getSessionFactory());
-        RequestDispatcher dispatcher = null;
-        
+        String id = request.getParameter("txtIdCuti");
+        String tglAwal = request.getParameter("txtTanggalAwal");
+        String tglAkhir = request.getParameter("txtTanggalAkhir");
+        String ket = request.getParameter("txtKeterangan");
+
         try (PrintWriter out = response.getWriter()) {
-           session.setAttribute("id", ck.getById(id));
-           dispatcher = request.getRequestDispatcher("views/editCutiKhususView.jsp");
-           dispatcher.include(request, response);
+            CutiController cc = new CutiController(HibernateUtil.getSessionFactory());
+            DateFormat formatTanggal = new SimpleDateFormat("yyyy-MM-dd");
+            Date tanggalAwal = formatTanggal.parse(tglAwal);
+            Date tanggalAkhir = formatTanggal.parse(tglAkhir);
+            if (cc.saveOrEdit(id, tanggalAwal, tanggalAkhir, ket)) {
+                response.sendRedirect("views/cutiView.jsp");
+            } else {
+                out.println("Gagal.");
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TambahCutiServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

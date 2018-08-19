@@ -18,12 +18,18 @@
         <title>Karyawan</title>
     </head>
     <body>
-        <h1>Data Karyawan</h1>
+       
         <% KaryawanController kc = new KaryawanController(HibernateUtil.getSessionFactory());
     //           JabatanController jc = new JabatanController(HibernateUtil.getSessionFactory());
     //           RoleController rc = new RoleController(HibernateUtil.getSessionFactory());
         %>
-
+         <h1>Data Karyawan</h1>
+        <select name="cmbCategory">
+                    </select>
+                    <input type="text" name="txtFind" value="" />
+                    <input type="submit" value="Find" name="btnFind" />
+                    <a href="tambahKaryawan.jsp">Tambah Data</a>
+                    <p>
         <table border="1">
             <thead>
                 <tr>
@@ -32,11 +38,6 @@
                     <th>Nama Karyawan</th>
                     <th>Email</th>
                     <th>Alamat</th>
-                    <th>Jatah Cuti</th>
-                    <th>Sisa Cuti</th>
-                    <th>Jabatan</th>
-                    <th>Role</th>
-                    <th>Password</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -52,21 +53,10 @@
                     <td><%= karyawan.getNamaKaryawan()%></td>
                     <td><%= karyawan.getEmail()%></td>
                     <td><%= karyawan.getAlamat()%></td>
-                    <td><%= karyawan.getJatahCuti()%></td> 
-                    <td><% if (karyawan.getSisaCuti() == null) {
-                            out.print("0");
-                        } else {
-                            out.print(karyawan.getSisaCuti());
-                        }
-                        %>
-                    </td>
-                    <td><%= karyawan.getIdJabatan().getNamaJabatan() %></td>
-                    <td><%= karyawan.getIdRole().getIdRole() %></td>
-                    <td><%= karyawan.getPassword() %></td>
                     <td>
-                        <a href="../karyawanServlet?id=<%= karyawan.getIdKaryawan()%>">edit</a>
-                        <a href="../tambahKaryawanServlet?id=<%= karyawan.getIdKaryawan()%>">tambah</a>
-                        <a href="../detailKaryawanServlet?id=<%= karyawan.getIdKaryawan()%>">details</a>
+                        <a href="../karyawanServlet?id=<%= karyawan.getIdKaryawan()%>">Edit</a>
+                        <a href="../detailKaryawanServlet?id=<%= karyawan.getIdKaryawan()%>">Details</a>
+                        <a href="#">Delete</a>
                     </td>
                 </tr>
                 <%

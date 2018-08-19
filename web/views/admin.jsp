@@ -3,9 +3,13 @@
     Created on : Aug 13, 2018, 9:38:45 PM
     Author     : kresna bayu
 --%>
-<%@page import="entities.Jabatan"%>
-<%@page import="tools.HibernateUtil"%>
+<%@page import="controllers.RoleController"%>
 <%@page import="controllers.JabatanController"%>
+<%@page import="controllers.KaryawanController"%>
+<%@page import="tools.HibernateUtil"%>
+<%@page import="entities.Karyawan"%>
+<%@page import="entities.Jabatan"%>
+<%@page import="entities.Role"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -44,37 +48,20 @@
                 <i class="fas fa-bars"></i>
             </button>
 
-            <!--Navbar Search--> 
-<!--            <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
-                
-                    <input type="text" class="form-control" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-                    <div class="input-group-append">
-                        <button class="btn btn-primary" type="button">
-                            <i class="fas fa-search"></i>
-                        </button>
-                    </div>
-                </div>
-            </form>-->
-
             <!-- Navbar -->
             <form class="d-none d-md-inline-block form-inline ml-auto ">
-                <div class="input-group">
-                    <li class="nav-item dropdown no-arrow">
-                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fas fa-user-circle fa-fw"></i>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                            <a class="dropdown-item" href="#">Settings</a>
-                            <a class="dropdown-item" href="#">Activity Log</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">Logout</a>
-                        </div>
+                <div class="input-group">                  
+                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-power-off" aria-hidden="true"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">Logout</a>
+                    </div>
                     </li>
-               
+
                 </div>
             </form>
         </nav>
-
         <div id="wrapper">
 
             <!-- Sidebar -->
@@ -86,11 +73,10 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="jabatanView.jsp" >
+                    <a class="nav-link" href="karyawanView.jsp.jsp" >
                         <i class="fas fa-fw fa-user-friends"></i>
                         <span>Data Karyawan</span>
                     </a>
-
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="../charts.html">
@@ -100,7 +86,6 @@
             </ul>
 
             <div id="content-wrapper">
-
                 <div class="container-fluid">
 
                     <!-- Breadcrumbs-->
@@ -112,19 +97,19 @@
                     </ol>                    
 
                     <!-- DataTables Example -->
-
                     <div class="card mb-3">
                         <div class="card-header">
 
                             <i class="fas fa-table"></i>
-                            Data Table Example</div>
+                            Data Table Karyawan</div>
                         <div class="card-body">
                             <!--Button Add-->
                             <div class="container-login100-form-btn">
                                 <a class="btn btn-success" href="" data-toggle="modal"
                                    data-target="#modaltambah">Add Data </a>
                             </div>
-                            <% JabatanController jc = new JabatanController(HibernateUtil.getSessionFactory()); %>
+                            
+                            <% KaryawanController kc = new KaryawanController(HibernateUtil.getSessionFactory()); %>
                             <p>
                             <div class="table-responsive">
 
@@ -134,8 +119,10 @@
                                         <tr>
                                         <tr>
                                             <th>No</th>
-                                            <th>Jabatan ID</th>
-                                            <th>Jabatan Title</th>
+                                            <th>Karyawan ID</th>
+                                            <th>Nama Karyawan</th>
+                                            <th>Email</th>
+                                            <th>Alamat</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -143,28 +130,32 @@
                                         <tr>
                                         <tr>
                                             <th>No</th>
-                                            <th>Jabatan ID</th>
-                                            <th>Jabatan Title</th>
+                                            <th>Karyawan ID</th>
+                                            <th>Nama Karyawan</th>
+                                            <th>Email</th>
+                                            <th>Alamat</th>
                                             <th>Action</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
                                         <% int i = 1;
-                    for (Jabatan jabatan : jc.getAll()) {%>                
+                    for (Karyawan karyawan : kc.getAll()) {
+                                        %>                
                                         <tr>
-                                            <td><%= i %></td>
-                                            <td><%= jabatan.getIdJabatan() %></td>
-                                            <td><%= jabatan.getNamaJabatan() %></td>
+                                            <td><%= i%></td>
+                                            <td><%= karyawan.getIdKaryawan()%></td>
+                                            <td><%= karyawan.getNamaKaryawan()%></td>
+                                            <td><%= karyawan.getEmail()%></td>
+                                            <td><%= karyawan.getAlamat()%></td>
                                             <td>
-                                                <a href="../jabatanServlet?id=<%= jabatan.getIdJabatan()%>">Edit</a>
+                                                <a href="../karyawanServlet?id=<%= karyawan.getIdKaryawan()%>">Edit</a>
                                             </td>
                                         </tr>
-                                        <% i++; }%>
+                                        <% i++;}  %>
                                     </tbody>
                                 </table>
                             </div>
-                        </div>
-                        <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+                        </div>                    
                     </div>
                 </div>
 
@@ -172,7 +163,7 @@
                 <div class="modal fade" id="modaltambah" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
-                            <form action="../addJabatanServlet" method="POST">
+                            <form action="../tambahKaryawanServlet" method="POST">
                                 <div class="modal-header text-center">
                                     <h4 class="modal-title w-100 font-weight-bold">Add Data</h4>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -181,18 +172,77 @@
                                 </div>
                                 <div class="modal-body mx-3">
                                     <div class="md-form mb-5">
+                                        <% String id = kc.getIdKaryawan();%>
                                         <i class="fa fa-user prefix grey-text"></i>
-                                        <label data-error="wrong" data-success="right" for="orangeForm-name">Jabatan ID</label>
-                                        <input  type="text" id="orangeForm-name" class="form-control validate" name="txtIdJabatan">
-
+                                        <label data-error="wrong" data-success="right" for="orangeForm-name">Karyawan ID</label>
+                                        <input type="text" id="orangeForm-name" class="form-control validate"  name="txtIdKaryawan" value="<%= id%>" >
                                     </div>
 
                                     <div class="md-form mb-5">
                                         <i class="fa fa-user prefix grey-text"></i>
-                                        <label data-error="wrong" data-success="right" for="orangeForm-name"  >Jabatan Title</label>
-                                        <input type="text" id="orangeForm-name" class="form-control validate" name="txtNamaJabatan">
-
+                                        <label data-error="wrong" data-success="right" for="orangeForm-name"  >Nama Karyawan</label>
+                                        <input type="text" id="orangeForm-name" class="form-control validate" name="txtNamaKaryawan">
                                     </div>
+
+                                    <div class="md-form mb-5">
+                                        <i class="fa fa-address-card prefix grey-text"></i>
+                                        <label data-error="wrong" data-success="right" for="orangeForm-name"  >Email</label>
+                                        <input type="text" id="orangeForm-name" class="form-control validate" name="txtEmail">
+                                    </div>
+
+                                    <div class="md-form mb-5">
+                                        <i class="fa fa-home prefix grey-text"></i>
+                                        <label data-error="wrong" data-success="right" for="orangeForm-name"  >Alamat</label>
+                                        <input type="text" id="orangeForm-name" class="form-control validate" name="txtAlamat">
+                                    </div>
+
+                                    <div class="md-form mb-5">
+                                        <i class="fa fa-times-circle prefix grey-text"></i>
+                                        <label data-error="wrong" data-success="right" for="orangeForm-name"  >Jatah Cuti</label>
+                                        <input type="text" id="orangeForm-name" class="form-control validate" name="txtJatahCuti">
+                                    </div>
+
+                                    <div class="md-form mb-5">
+                                        <i class="fa fa-user prefix grey-text"></i>
+                                        <label data-error="wrong" data-success="right" for="orangeForm-name"  >Sisa Cuti</label>
+                                        <input type="text" id="orangeForm-name" class="form-control validate" name="txtSisaCuti">
+                                    </div>
+
+                                    <div class="md-form mb-5">
+                                        <i class="fa fa-user prefix grey-text"></i>
+                                        <label data-error="wrong" data-success="right" for="orangeForm-name"  >Jabatan</label>
+                                        <select class="form-control" name="cmbJabatan">
+                                            <%
+                                    JabatanController jc = new JabatanController(HibernateUtil.getSessionFactory());
+                                     for (Jabatan jabatan : jc.getAll()){
+                                            %><option value="<%= jabatan.getIdJabatan() %>"><%= jabatan.getNamaJabatan() %></option>
+                                            <%
+                                                    }
+                                            %>
+                                        </select>
+                                    </div>
+
+                                    <div class="md-form mb-5">
+                                        <i class="fa fa-user prefix grey-text"></i>
+                                        <label data-error="wrong" data-success="right" for="orangeForm-name"  >Role</label>
+                                        <select class="form-control" name="cmbRole">
+                                            <%
+                                       RoleController rc = new RoleController(HibernateUtil.getSessionFactory());
+                                
+                                       for (Role role : rc.getAll()){
+                                            %><option value="<%= role.getIdRole() %>"><%= role.getNamaRole() %></option>
+                                            <%
+                                                }
+                                            %>  
+                                        </select>
+                                    </div>
+
+                                    <div class="md-form mb-5">
+                                        <i class="fa fa-user prefix grey-text"></i>
+                                        <label data-error="wrong" data-success="right" for="orangeForm-name"  >Password</label>
+                                        <input type="text" id="orangeForm-name" class="form-control validate" name="txtPassword">
+                                    </div>
+
                                 </div>
                                 <div class="modal-footer d-flex justify-content-center">
                                     <button class="btn btn-deep-orange" type="submit">Add</button>

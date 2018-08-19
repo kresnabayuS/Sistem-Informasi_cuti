@@ -14,39 +14,44 @@ import org.hibernate.SessionFactory;
  * @author Simbok_pc
  */
 public class CutiDAO {
+
     private FunctionDAO fdao;
-    
+
     public CutiDAO(SessionFactory factory) {
         this.fdao = new FunctionDAO(factory);
     }
-    
+
     /**
-     * 
+     *
      * @param cuti
-     * @return 
+     * @return
      */
-    public boolean insertOrUpdate(Cuti cuti){
+    public boolean insertOrUpdate(Cuti cuti) {
         return this.fdao.insertOrUpdate(cuti);
     }
-    
+
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
     public List<Object> getAll() {
         return this.fdao.get("FROM Cuti");
     }
-    
+
     /**
-     * 
+     *
      * @param idCuti
-     * @return 
+     * @return
      */
     public Cuti getById(String idCuti) {
         return (Cuti) this.fdao.getById("FROM Cuti WHERE idCuti='" + idCuti + "'");
     }
-    
-    public List<Object> search(String category, String data){
+
+    public List<Object> search(String category, String data) {
         return this.fdao.get("FOM Cuti WHERE REGEXP_LIKE(" + category + ",'%" + data + "%','i')");
+    }
+
+    public String getIdCuti() {
+        return (String) this.fdao.getById("Select CONCAT('C',LPAD((TO_NUMBER(SUBSTR(MAX(id_cuti),2,3))+1),3, '0')) FROM Cuti");
     }
 }

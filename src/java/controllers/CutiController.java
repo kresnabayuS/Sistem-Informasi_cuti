@@ -56,6 +56,10 @@ public class CutiController {
     public List<Cuti> find(String category, String data){
         return this.convertToListCuti(this.cdao.search(category, data));
     }
+    
+    public String getIdCuti(){
+        return this.cdao.getIdCuti();
+    }
 }
     
 

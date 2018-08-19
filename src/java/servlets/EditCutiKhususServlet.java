@@ -46,16 +46,16 @@ public class EditCutiKhususServlet extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             
             DateFormat tgl = new SimpleDateFormat("yyyy-MM-dd");
-            Date tanggal_awal = tgl.parse(tgl_awal);
-            Date tanggal_akhir = tgl.parse(tgl_akhir);
-            CutiKhususController ck = new CutiKhususController(HibernateUtil.getSessionFactory());
-            if(ck.saveOrEdit(id, name, Integer.parseInt(lama),tanggal_awal, tanggal_akhir)){
-                   out.println("Selamat, edit cuti khusus berhasil!");
-            } else {
-                out.println("Coba Lagi!");
-            }
-        }catch (Exception e) {
-            e.printStackTrace();
+//            Date tanggal_awal = tgl.parse(tgl_awal);
+//            Date tanggal_akhir = tgl.parse(tgl_akhir);
+//            CutiKhususController ck = new CutiKhususController(HibernateUtil.getSessionFactory());
+////            if(ck.saveOrEdit(id, name, Integer.parseInt(lama),tanggal_awal, tanggal_akhir)){
+//                   out.println("Selamat, edit cuti khusus berhasil!");
+//            } else {
+//                out.println("Coba Lagi!");
+//            }
+//        }catch (Exception e) {
+//            e.printStackTrace();
         }
     }
 

@@ -8,8 +8,6 @@ package servlets;
 import controllers.KaryawanController;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -40,17 +38,18 @@ public class TambahKaryawanServlet extends HttpServlet {
         String alamat = request.getParameter("txtAlamat");
         String jatah = request.getParameter("txtJatahCuti");
         String sisa = request.getParameter("txtSisaCuti");
-      
-        
+        String jabatan = request.getParameter("cmbJabatan");
+        String role = request.getParameter("cmbRole");
+        String password = request.getParameter("txtPassword");
+
         try (PrintWriter out = response.getWriter()) {
             KaryawanController kc = new KaryawanController(HibernateUtil.getSessionFactory());
-            if (kc.saveOrEdit(id, nama, email, alamat, jatah, sisa, null, null)){
-                response.sendRedirect("views/karyawanView.jsp");
+            if (kc.saveOrUpdate(id, nama, email, alamat, jatah, sisa, password, jabatan, role)) {
+                
             } else {
                 out.println("Gagal.");
             }
-        } catch (Exception ex) {
-            Logger.getLogger(EditKaryawanServlet.class.getName()).log(Level.SEVERE, null, ex);
+            response.sendRedirect("views/admin.jsp");
         }
     }
 

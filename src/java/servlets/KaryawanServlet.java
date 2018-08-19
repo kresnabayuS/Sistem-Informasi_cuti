@@ -37,7 +37,7 @@ public class KaryawanServlet extends HttpServlet {
         String id = request.getParameter("id");
         HttpSession session = request.getSession();
         KaryawanController kc = new KaryawanController(HibernateUtil.getSessionFactory());
-        RequestDispatcher dispatcher = null;
+      
         
         try (PrintWriter out = response.getWriter()) {
             session.setAttribute("id", kc.getById(id));
