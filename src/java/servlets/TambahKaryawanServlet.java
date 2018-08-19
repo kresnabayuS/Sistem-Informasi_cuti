@@ -16,7 +16,7 @@ import tools.HibernateUtil;
 
 /**
  *
- * @author Simbok_pc
+ * @author kresna bayu
  */
 public class TambahKaryawanServlet extends HttpServlet {
 
@@ -32,7 +32,7 @@ public class TambahKaryawanServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String id = request.getParameter("txtIdKaryawan");
+          String id = request.getParameter("txtIdKaryawan");
         String nama = request.getParameter("txtNamaKaryawan");
         String email = request.getParameter("txtEmail");
         String alamat = request.getParameter("txtAlamat");
@@ -41,16 +41,14 @@ public class TambahKaryawanServlet extends HttpServlet {
         String jabatan = request.getParameter("cmbJabatan");
         String role = request.getParameter("cmbRole");
         String password = request.getParameter("txtPassword");
-
         try (PrintWriter out = response.getWriter()) {
-            KaryawanController kc = new KaryawanController(HibernateUtil.getSessionFactory());
-            if (kc.saveOrUpdate(id, nama, email, alamat, jatah, sisa, password, jabatan, role)) {
-                
+KaryawanController kc = new KaryawanController(HibernateUtil.getSessionFactory());
+            if (kc.saveOrUpdate(id, nama, email, alamat, jatah, sisa, password, jabatan, role)){
+                response.sendRedirect("views/admin.jsp");
             } else {
                 out.println("Gagal.");
             }
-            response.sendRedirect("views/admin.jsp");
-        }
+        } 
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

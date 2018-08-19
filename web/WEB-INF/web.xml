@@ -24,6 +24,18 @@
         <servlet-name>ValidationServlet</servlet-name>
         <servlet-class>servlets.ValidationServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>TambahKaryawanServlet</servlet-name>
+        <servlet-class>servlets.TambahKaryawanServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DetailKaryawanServlet</servlet-name>
+        <servlet-class>servlets.DetailKaryawanServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>KaryawanServlet</servlet-name>
+        <servlet-class>servlets.KaryawanServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>JabatanViewServlet</servlet-name>
         <url-pattern>/jabatanViewServlet</url-pattern>
@@ -47,6 +59,18 @@
     <servlet-mapping>
         <servlet-name>ValidationServlet</servlet-name>
         <url-pattern>/validationServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TambahKaryawanServlet</servlet-name>
+        <url-pattern>/tambahKaryawanServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DetailKaryawanServlet</servlet-name>
+        <url-pattern>/detailKaryawanServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>KaryawanServlet</servlet-name>
+        <url-pattern>/karyawanServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

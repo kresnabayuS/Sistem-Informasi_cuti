@@ -8,7 +8,6 @@ package servlets;
 import controllers.KaryawanController;
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -18,7 +17,7 @@ import tools.HibernateUtil;
 
 /**
  *
- * @author Simbok_pc
+ * @author kresna bayu
  */
 public class KaryawanServlet extends HttpServlet {
 

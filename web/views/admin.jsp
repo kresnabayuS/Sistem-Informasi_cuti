@@ -73,7 +73,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="karyawanView.jsp.jsp" >
+                    <a class="nav-link" href="karyawanView.jsp" >
                         <i class="fas fa-fw fa-user-friends"></i>
                         <span>Data Karyawan</span>
                     </a>
@@ -147,9 +147,7 @@
                                             <td><%= karyawan.getNamaKaryawan()%></td>
                                             <td><%= karyawan.getEmail()%></td>
                                             <td><%= karyawan.getAlamat()%></td>
-                                            <td>
-                                                <a href="../karyawanServlet?id=<%= karyawan.getIdKaryawan()%>">Edit</a>
-                                            </td>
+                                            
                                         </tr>
                                         <% i++;}  %>
                                     </tbody>
@@ -172,7 +170,8 @@
                                 </div>
                                 <div class="modal-body mx-3">
                                     <div class="md-form mb-5">
-                                        <% String id = kc.getIdKaryawan();%>
+                                        <% 
+                                           String id = kc.getIdKaryawan();%>
                                         <i class="fa fa-user prefix grey-text"></i>
                                         <label data-error="wrong" data-success="right" for="orangeForm-name">Karyawan ID</label>
                                         <input type="text" id="orangeForm-name" class="form-control validate"  name="txtIdKaryawan" value="<%= id%>" >

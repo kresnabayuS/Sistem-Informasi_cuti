@@ -18,7 +18,7 @@ import tools.HibernateUtil;
 
 /**
  *
- * @author Simbok_pc
+ * @author kresna bayu
  */
 public class DetailKaryawanServlet extends HttpServlet {
 
