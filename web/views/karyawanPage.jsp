@@ -4,9 +4,10 @@
     Author     : kresna bayu
 --%>
 
-<%@page import="entities.Jabatan"%>
+<%@page import="controllers.CutiKhususController"%>
+<%@page import="entities.Cuti"%>
+<%@page import="controllers.CutiController"%>
 <%@page import="tools.HibernateUtil"%>
-<%@page import="controllers.JabatanController"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
@@ -76,63 +77,59 @@
             <div class="container">
                 <h2 class="text-center text-uppercase text-secondary mb-0">Histories Leave Request</h2>
                 <hr class="star-dark mb-5">
-    
-                    <!-- DataTables Example -->
 
-                    <div class="card mb-3">
-                        <div class="card-header">
+                <!-- DataTables Example -->
 
-                            <!--                    <i class="fas fa-table"></i>
-                                                Data Table Example</div>
-                                            <div class="card-body">-->
-                            <!--Button Add-->
-                            <div class="container-login100-form-btn">
-                                <a class="btn btn-success" href="" data-toggle="modal"
-                                   data-target="#modaltambah">Add Data </a>
-                            </div>
-                            <% JabatanController jc = new JabatanController(HibernateUtil.getSessionFactory()); %>
-                            <p>
-                            <div class="table-responsive">
+                <div class="card mb-3">
+                    <div class="card-header">
 
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 
-                                    <thead>
-                                        <tr>
-                                        <tr>
-                                            <th>No</th>
-                                            <th>Jabatan ID</th>
-                                            <th>Jabatan Title</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tfoot>
-                                        <tr>
-                                        <tr>
-                                            <th>No</th>
-                                            <th>Jabatan ID</th>
-                                            <th>Jabatan Title</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </tfoot>
-                                    <tbody>
-                                        <% int i = 1;
-                    for (Jabatan jabatan : jc.getAll()) {%>                
-                                        <tr>
-                                            <td><%= i %></td>
-                                            <td><%= jabatan.getIdJabatan() %></td>
-                                            <td><%= jabatan.getNamaJabatan() %></td>
-                                            <td>
-                                                <a href="../jabatanServlet?id=<%= jabatan.getIdJabatan()%>">Edit</a>
-                                            </td>
-                                        </tr>
-                                        <% i++; }%>
-                                    </tbody>
-                                </table>
-                            </div>
+                        <% CutiController cc = new CutiController(HibernateUtil.getSessionFactory()); %>
+                        <p>
+                        <div class="table-responsive">
+
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+
+                                <thead>
+                                    <tr>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Cuti ID</th>
+                                        <th>Tanggal Awal</th>
+                                        <th>Tanggal Akhir</th>
+                                        <th>Keterangan</th>
+
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                    <tr>
+
+                                </tfoot>
+                                <tbody>
+                                    <% int i = 1;
+                    for (Cuti cuti : cc.getAll()) {
+                                    %>               
+                                    <tr>
+                                        <td><%= i %></td>
+                                        <td><%= cuti.getIdCuti() %></td>
+                                        <td><%= cuti.getTanggalAwal() %></td>
+                                        <td><%= cuti.getTanggalAkhir() %></td>
+                                        <td><%= cuti.getKeterangan() %></td>
+                                        <td>
+
+                                        </td>
+                                    </tr>
+                                    <%
+                      i++;
+                   }
+                                    %>
+                                </tbody>
+                            </table>
                         </div>
-                 
-                    <!--<div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>-->
+                    </div>
+
                 </div>
+
             </div>
 
 
@@ -153,298 +150,342 @@
         <!-- Leave Req Section -->
         <section class="text-white mb-0" id="about">
             <h2 class="text-center text-uppercase text-secondary mb-0">Leave Request Form</h2>
-            <hr class="star-dark mb-5">
+            <hr class="star-dark mb-5"><br><br>
             <div class="row">
-                <div class="col-lg-8 mx-auto">
-                    <!-- To configure the contact form email address, go to mail/contact_me.php and update the email address in the PHP file on line 19. -->
-                    <!-- The form should work on most web servers, but if the form is not working you may need to configure your web server differently. -->
+                <div class="col-lg-5 mx-auto">
+                    <h4 class="text-center text-secondary mb-0">Annual Leave</h4>
+                </div>
+                <div class="col-lg-7 mx-auto">
                     <form name="sentMessage" id="contactForm" novalidate="novalidate">
                         <div class="control-group">
                             <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                                <label>Name</label>
-                                <input class="form-control" id="name" type="text" placeholder="Name" required="required" data-validation-required-message="Please enter your name.">
+                                <label>From</label>
+                                <input class="form-control" id="name" type="datetime" placeholder="From" required="required">
                                 <p class="help-block text-danger"></p>
                             </div>
                         </div>
                         <div class="control-group">
                             <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                                <label>Email Address</label>
-                                <input class="form-control" id="email" type="email" placeholder="Email Address" required="required" data-validation-required-message="Please enter your email address.">
+                                <label>To</label>
+                                <input class="form-control" id="email" type="datetime" placeholder="To" required="required">
+                                <p class="help-block text-danger"></p>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div><br><br><hr><br>
+            <div class="row">
+                <div class="col-lg-5 mx-auto">
+                    <h4 class="text-center text-secondary mb-0">Special Leave</h4>
+                </div>
+                <div class="col-lg-7 mx-auto">
+                    <div class="dropdown">
+                        <button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">Special Leaves
+                            <span class="caret"></span></button>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Menikah</a></li>
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Anggota keluarga meninggal</a></li>
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Anak sunat</a></li>
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Naik haji / umroh</a></li>
+                        </ul>
+                    </div><br>
+                    <form name="sentMessage" id="contactForm" novalidate="novalidate">
+                        <div class="control-group">
+                            <div class="form-group floating-label-form-group controls mb-0 pb-2">
+                                <label>From</label>
+                                <input class="form-control" id="name" type="datetime" placeholder="From" required="required">
                                 <p class="help-block text-danger"></p>
                             </div>
                         </div>
                         <div class="control-group">
                             <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                                <label>Phone Number</label>
-                                <input class="form-control" id="phone" type="tel" placeholder="Phone Number" required="required" data-validation-required-message="Please enter your phone number.">
+                                <label>To</label>
+                                <input class="form-control" id="email" type="datetime" placeholder="To" required="required">
                                 <p class="help-block text-danger"></p>
                             </div>
-                        </div>
+                        </div><br><br>
                         <div class="control-group">
                             <div class="form-group floating-label-form-group controls mb-0 pb-2">
                                 <label>Message</label>
-                                <textarea class="form-control" id="message" rows="5" placeholder="Message" required="required" data-validation-required-message="Please enter a message."></textarea>
+                                <textarea class="form-control" id="message" rows="5" placeholder="Message" required="required"></textarea>
                                 <p class="help-block text-danger"></p>
                             </div>
                         </div>
-                        <br>
-                        <div id="success"></div>
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-primary btn-xl" id="sendMessageButton">Send</button>
+                    </form>
+                </div>
+            </div><br><br><hr><br>
+            <div class="row">
+                <div class="col-lg-5 mx-auto">
+                    <h4 class="text-center text-secondary mb-0">Attachment</h4>
+                </div>
+                <div class="col-lg-7 mx-auto">
+                    <h5 class="text-center text-secondary mb-0">Document</h5>
+                    <form name="sentMessage" id="contactForm" novalidate="novalidate">
+                        <div class="control-group">
+                            <div class="form-group floating-label-form-group controls mb-0 pb-2">
+                                <label>Select File...</label>
+                                <input class="form-control" id="name" placeholder="Select File..." required="required">
+                            </div>
+                        </div>
+                        <div id="success">
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary" id="sendMessageButton">Choose File</button>
+                            </div></div>
+                    </form>
+                </div>
+            </div><br><br>
+            <div id="success" class="col-lg-10 mx-auto"></div>
+            <div class="form-group" align="center">
+                <button type="submit" class="btn btn-primary btn-xl" id="sendMessageButton">SUBMIT</button>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer text-center">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4 mb-5 mb-lg-0">
+                        <h4 class="text-uppercase mb-4">Location</h4>
+                        <p class="lead mb-0">2215 John Daniel Drive
+                            <br>Clark, MO 65243</p>
+                    </div>
+                    <div class="col-md-4 mb-5 mb-lg-0">
+                        <h4 class="text-uppercase mb-4">Around the Web</h4>
+                        <ul class="list-inline mb-0">
+                            <li class="list-inline-item">
+                                <a class="btn btn-outline-light btn-social text-center rounded-circle" href="#">
+                                    <i class="fa fa-fw fa-facebook"></i>
+                                </a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a class="btn btn-outline-light btn-social text-center rounded-circle" href="#">
+                                    <i class="fa fa-fw fa-google-plus"></i>
+                                </a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a class="btn btn-outline-light btn-social text-center rounded-circle" href="#">
+                                    <i class="fa fa-fw fa-twitter"></i>
+                                </a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a class="btn btn-outline-light btn-social text-center rounded-circle" href="#">
+                                    <i class="fa fa-fw fa-linkedin"></i>
+                                </a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a class="btn btn-outline-light btn-social text-center rounded-circle" href="#">
+                                    <i class="fa fa-fw fa-dribbble"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4">
+                        <h4 class="text-uppercase mb-4">About Freelancer</h4>
+                        <p class="lead mb-0">Freelance is a free to use, open source Bootstrap theme created by
+                            <a href="http://startbootstrap.com">Start Bootstrap</a>.</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        <div class="copyright py-4 text-center text-white">
+            <div class="container">
+                <small>Copyright &copy; Your Website 2018</small>
+            </div>
+        </div>
+
+        <!-- Scroll to Top Button (Only visible on small and extra-small screen sizes) -->
+        <div class="scroll-to-top d-lg-none position-fixed ">
+            <a class="js-scroll-trigger d-block text-center text-white rounded" href="#page-top">
+                <i class="fa fa-chevron-up"></i>
+            </a>
+        </div>
+
+        <!-- Portfolio Modals -->
+
+        <!-- Portfolio Modal 1 -->
+        <div class="portfolio-modal mfp-hide" id="portfolio-modal-1">
+            <div class="portfolio-modal-dialog bg-white">
+                <a class="close-button d-none d-md-block portfolio-modal-dismiss" href="#">
+                    <i class="fa fa-3x fa-times"></i>
+                </a>
+                <div class="container text-center">
+                    <div class="row">
+                        <div class="col-lg-8 mx-auto">
+                            <h2 class="text-secondary text-uppercase mb-0">Project Name</h2>
+                            <hr class="star-dark mb-5">
+                            <img class="img-fluid mb-5" src="../images/portfolio/cabin.png" alt="">
+                            <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>
+                            <a class="btn btn-primary btn-lg rounded-pill portfolio-modal-dismiss" href="#">
+                                <i class="fa fa-close"></i>
+                                Close Project</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Portfolio Modal 2 -->
+        <div class="portfolio-modal mfp-hide" id="portfolio-modal-2">
+            <div class="portfolio-modal-dialog bg-white">
+                <a class="close-button d-none d-md-block portfolio-modal-dismiss" href="#">
+                    <i class="fa fa-3x fa-times"></i>
+                </a>
+                <div class="container text-center">
+                    <div class="row">
+                        <div class="col-lg-8 mx-auto">
+                            <h2 class="text-secondary text-uppercase mb-0">Project Name</h2>
+                            <hr class="star-dark mb-5">
+                            <img class="img-fluid mb-5" src="../images/portfolio/cake.png" alt="">
+                            <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>
+                            <a class="btn btn-primary btn-lg rounded-pill portfolio-modal-dismiss" href="#">
+                                <i class="fa fa-close"></i>
+                                Close Project</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Portfolio Modal 3 -->
+        <div class="portfolio-modal mfp-hide" id="portfolio-modal-3">
+            <div class="portfolio-modal-dialog bg-white">
+                <a class="close-button d-none d-md-block portfolio-modal-dismiss" href="#">
+                    <i class="fa fa-3x fa-times"></i>
+                </a>
+                <div class="container text-center">
+                    <div class="row">
+                        <div class="col-lg-8 mx-auto">
+                            <h2 class="text-secondary text-uppercase mb-0">Project Name</h2>
+                            <hr class="star-dark mb-5">
+                            <img class="img-fluid mb-5" src="../images/portfolio/circus.png" alt="">
+                            <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>
+                            <a class="btn btn-primary btn-lg rounded-pill portfolio-modal-dismiss" href="#">
+                                <i class="fa fa-close"></i>
+                                Close Project</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Portfolio Modal 4 -->
+        <div class="portfolio-modal mfp-hide" id="portfolio-modal-4">
+            <div class="portfolio-modal-dialog bg-white">
+                <a class="close-button d-none d-md-block portfolio-modal-dismiss" href="#">
+                    <i class="fa fa-3x fa-times"></i>
+                </a>
+                <div class="container text-center">
+                    <div class="row">
+                        <div class="col-lg-8 mx-auto">
+                            <h2 class="text-secondary text-uppercase mb-0">Project Name</h2>
+                            <hr class="star-dark mb-5">
+                            <img class="img-fluid mb-5" src="../images/portfolio/game.png" alt="">
+                            <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>
+                            <a class="btn btn-primary btn-lg rounded-pill portfolio-modal-dismiss" href="#">
+                                <i class="fa fa-close"></i>
+                                Close Project</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Portfolio Modal 5 -->
+        <div class="portfolio-modal mfp-hide" id="portfolio-modal-5">
+            <div class="portfolio-modal-dialog bg-white">
+                <a class="close-button d-none d-md-block portfolio-modal-dismiss" href="#">
+                    <i class="fa fa-3x fa-times"></i>
+                </a>
+                <div class="container text-center">
+                    <div class="row">
+                        <div class="col-lg-8 mx-auto">
+                            <h2 class="text-secondary text-uppercase mb-0">Project Name</h2>
+                            <hr class="star-dark mb-5">
+                            <img class="img-fluid mb-5" src="../images/portfolio/safe.png" alt="">
+                            <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>
+                            <a class="btn btn-primary btn-lg rounded-pill portfolio-modal-dismiss" href="#">
+                                <i class="fa fa-close"></i>
+                                Close Project</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Portfolio Modal 6 -->
+        <div class="portfolio-modal mfp-hide" id="portfolio-modal-6">
+            <div class="portfolio-modal-dialog bg-white">
+                <a class="close-button d-none d-md-block portfolio-modal-dismiss" href="#">
+                    <i class="fa fa-3x fa-times"></i>
+                </a>
+                <div class="container text-center">
+                    <div class="row">
+                        <div class="col-lg-8 mx-auto">
+                            <h2 class="text-secondary text-uppercase mb-0">Project Name</h2>
+                            <hr class="star-dark mb-5">
+                            <img class="img-fluid mb-5" src="../images/portfolio/submarine.png" alt="">
+                            <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>
+                            <a class="btn btn-primary btn-lg rounded-pill portfolio-modal-dismiss" href="#">
+                                <i class="fa fa-close"></i>
+                                Close Project</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- modal Add-->
+        <div class="modal fade" id="modaltambah" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <form action="../addJabatanServlet" method="POST">
+                        <div class="modal-header text-center">
+                            <h4 class="modal-title w-100 font-weight-bold">Add Data</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body mx-3">
+                            <div class="md-form mb-5">
+                                <i class="fa fa-user prefix grey-text"></i>
+                                <label data-error="wrong" data-success="right" for="orangeForm-name">Jabatan ID</label>
+                                <input  type="text" id="orangeForm-name" class="form-control validate" name="txtIdJabatan">
+
+                            </div>
+
+                            <div class="md-form mb-5">
+                                <i class="fa fa-user prefix grey-text"></i>
+                                <label data-error="wrong" data-success="right" for="orangeForm-name"  >Jabatan Title</label>
+                                <input type="text" id="orangeForm-name" class="form-control validate" name="txtNamaJabatan">
+
+                            </div>
+                        </div>
+                        <div class="modal-footer d-flex justify-content-center">
+                            <button class="btn btn-deep-orange" type="submit">Add</button>
                         </div>
                     </form>
-                </div>>
-            </div>
-        </div>
-    </section>
-
-
-    <!-- Footer -->
-    <footer class="footer text-center">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4 mb-5 mb-lg-0">
-                    <h4 class="text-uppercase mb-4">Location</h4>
-                    <p class="lead mb-0">2215 John Daniel Drive
-                        <br>Clark, MO 65243</p>
-                </div>
-                <div class="col-md-4 mb-5 mb-lg-0">
-                    <h4 class="text-uppercase mb-4">Around the Web</h4>
-                    <ul class="list-inline mb-0">
-                        <li class="list-inline-item">
-                            <a class="btn btn-outline-light btn-social text-center rounded-circle" href="#">
-                                <i class="fa fa-fw fa-facebook"></i>
-                            </a>
-                        </li>
-                        <li class="list-inline-item">
-                            <a class="btn btn-outline-light btn-social text-center rounded-circle" href="#">
-                                <i class="fa fa-fw fa-google-plus"></i>
-                            </a>
-                        </li>
-                        <li class="list-inline-item">
-                            <a class="btn btn-outline-light btn-social text-center rounded-circle" href="#">
-                                <i class="fa fa-fw fa-twitter"></i>
-                            </a>
-                        </li>
-                        <li class="list-inline-item">
-                            <a class="btn btn-outline-light btn-social text-center rounded-circle" href="#">
-                                <i class="fa fa-fw fa-linkedin"></i>
-                            </a>
-                        </li>
-                        <li class="list-inline-item">
-                            <a class="btn btn-outline-light btn-social text-center rounded-circle" href="#">
-                                <i class="fa fa-fw fa-dribbble"></i>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="col-md-4">
-                    <h4 class="text-uppercase mb-4">About Freelancer</h4>
-                    <p class="lead mb-0">Freelance is a free to use, open source Bootstrap theme created by
-                        <a href="http://startbootstrap.com">Start Bootstrap</a>.</p>
                 </div>
             </div>
         </div>
-    </footer>
 
-    <div class="copyright py-4 text-center text-white">
-        <div class="container">
-            <small>Copyright &copy; Your Website 2018</small>
-        </div>
-    </div>
+        <!-- Bootstrap core JavaScript -->
+        <script src="../vendor/jquery/jquery.min.js"></script>
+        <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-    <!-- Scroll to Top Button (Only visible on small and extra-small screen sizes) -->
-    <div class="scroll-to-top d-lg-none position-fixed ">
-        <a class="js-scroll-trigger d-block text-center text-white rounded" href="#page-top">
-            <i class="fa fa-chevron-up"></i>
-        </a>
-    </div>
+        <!-- Plugin JavaScript -->
+        <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
+        <script src="../vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
 
-    <!-- Portfolio Modals -->
+        <!-- Contact Form JavaScript -->
+        <script src="../js/jqBootstrapValidation.js"></script>
+        <script src="../js/contact_me.js"></script>
 
-    <!-- Portfolio Modal 1 -->
-    <div class="portfolio-modal mfp-hide" id="portfolio-modal-1">
-        <div class="portfolio-modal-dialog bg-white">
-            <a class="close-button d-none d-md-block portfolio-modal-dismiss" href="#">
-                <i class="fa fa-3x fa-times"></i>
-            </a>
-            <div class="container text-center">
-                <div class="row">
-                    <div class="col-lg-8 mx-auto">
-                        <h2 class="text-secondary text-uppercase mb-0">Project Name</h2>
-                        <hr class="star-dark mb-5">
-                        <img class="img-fluid mb-5" src="../images/portfolio/cabin.png" alt="">
-                        <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>
-                        <a class="btn btn-primary btn-lg rounded-pill portfolio-modal-dismiss" href="#">
-                            <i class="fa fa-close"></i>
-                            Close Project</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+        <!-- Custom scripts for this template -->
+        <script src="../js/freelancer.min.js"></script>
 
-    <!-- Portfolio Modal 2 -->
-    <div class="portfolio-modal mfp-hide" id="portfolio-modal-2">
-        <div class="portfolio-modal-dialog bg-white">
-            <a class="close-button d-none d-md-block portfolio-modal-dismiss" href="#">
-                <i class="fa fa-3x fa-times"></i>
-            </a>
-            <div class="container text-center">
-                <div class="row">
-                    <div class="col-lg-8 mx-auto">
-                        <h2 class="text-secondary text-uppercase mb-0">Project Name</h2>
-                        <hr class="star-dark mb-5">
-                        <img class="img-fluid mb-5" src="../images/portfolio/cake.png" alt="">
-                        <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>
-                        <a class="btn btn-primary btn-lg rounded-pill portfolio-modal-dismiss" href="#">
-                            <i class="fa fa-close"></i>
-                            Close Project</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+        <script src="../js/demo/datatables-demo.js"></script>
 
-    <!-- Portfolio Modal 3 -->
-    <div class="portfolio-modal mfp-hide" id="portfolio-modal-3">
-        <div class="portfolio-modal-dialog bg-white">
-            <a class="close-button d-none d-md-block portfolio-modal-dismiss" href="#">
-                <i class="fa fa-3x fa-times"></i>
-            </a>
-            <div class="container text-center">
-                <div class="row">
-                    <div class="col-lg-8 mx-auto">
-                        <h2 class="text-secondary text-uppercase mb-0">Project Name</h2>
-                        <hr class="star-dark mb-5">
-                        <img class="img-fluid mb-5" src="../images/portfolio/circus.png" alt="">
-                        <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>
-                        <a class="btn btn-primary btn-lg rounded-pill portfolio-modal-dismiss" href="#">
-                            <i class="fa fa-close"></i>
-                            Close Project</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Portfolio Modal 4 -->
-    <div class="portfolio-modal mfp-hide" id="portfolio-modal-4">
-        <div class="portfolio-modal-dialog bg-white">
-            <a class="close-button d-none d-md-block portfolio-modal-dismiss" href="#">
-                <i class="fa fa-3x fa-times"></i>
-            </a>
-            <div class="container text-center">
-                <div class="row">
-                    <div class="col-lg-8 mx-auto">
-                        <h2 class="text-secondary text-uppercase mb-0">Project Name</h2>
-                        <hr class="star-dark mb-5">
-                        <img class="img-fluid mb-5" src="../images/portfolio/game.png" alt="">
-                        <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>
-                        <a class="btn btn-primary btn-lg rounded-pill portfolio-modal-dismiss" href="#">
-                            <i class="fa fa-close"></i>
-                            Close Project</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Portfolio Modal 5 -->
-    <div class="portfolio-modal mfp-hide" id="portfolio-modal-5">
-        <div class="portfolio-modal-dialog bg-white">
-            <a class="close-button d-none d-md-block portfolio-modal-dismiss" href="#">
-                <i class="fa fa-3x fa-times"></i>
-            </a>
-            <div class="container text-center">
-                <div class="row">
-                    <div class="col-lg-8 mx-auto">
-                        <h2 class="text-secondary text-uppercase mb-0">Project Name</h2>
-                        <hr class="star-dark mb-5">
-                        <img class="img-fluid mb-5" src="../images/portfolio/safe.png" alt="">
-                        <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>
-                        <a class="btn btn-primary btn-lg rounded-pill portfolio-modal-dismiss" href="#">
-                            <i class="fa fa-close"></i>
-                            Close Project</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Portfolio Modal 6 -->
-    <div class="portfolio-modal mfp-hide" id="portfolio-modal-6">
-        <div class="portfolio-modal-dialog bg-white">
-            <a class="close-button d-none d-md-block portfolio-modal-dismiss" href="#">
-                <i class="fa fa-3x fa-times"></i>
-            </a>
-            <div class="container text-center">
-                <div class="row">
-                    <div class="col-lg-8 mx-auto">
-                        <h2 class="text-secondary text-uppercase mb-0">Project Name</h2>
-                        <hr class="star-dark mb-5">
-                        <img class="img-fluid mb-5" src="../images/portfolio/submarine.png" alt="">
-                        <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>
-                        <a class="btn btn-primary btn-lg rounded-pill portfolio-modal-dismiss" href="#">
-                            <i class="fa fa-close"></i>
-                            Close Project</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- modal Add-->
-    <div class="modal fade" id="modaltambah" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <form action="../addJabatanServlet" method="POST">
-                    <div class="modal-header text-center">
-                        <h4 class="modal-title w-100 font-weight-bold">Add Data</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body mx-3">
-                        <div class="md-form mb-5">
-                            <i class="fa fa-user prefix grey-text"></i>
-                            <label data-error="wrong" data-success="right" for="orangeForm-name">Jabatan ID</label>
-                            <input  type="text" id="orangeForm-name" class="form-control validate" name="txtIdJabatan">
-
-                        </div>
-
-                        <div class="md-form mb-5">
-                            <i class="fa fa-user prefix grey-text"></i>
-                            <label data-error="wrong" data-success="right" for="orangeForm-name"  >Jabatan Title</label>
-                            <input type="text" id="orangeForm-name" class="form-control validate" name="txtNamaJabatan">
-
-                        </div>
-                    </div>
-                    <div class="modal-footer d-flex justify-content-center">
-                        <button class="btn btn-deep-orange" type="submit">Add</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <!-- Bootstrap core JavaScript -->
-    <script src="../vendor/jquery/jquery.min.js"></script>
-    <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Plugin JavaScript -->
-    <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
-    <script src="../vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
-
-    <!-- Contact Form JavaScript -->
-    <script src="../js/jqBootstrapValidation.js"></script>
-    <script src="../js/contact_me.js"></script>
-
-    <!-- Custom scripts for this template -->
-    <script src="../js/freelancer.min.js"></script>
-
-    <script src="../js/demo/datatables-demo.js"></script>
-
-</body>
+    </body>
 
 </html>

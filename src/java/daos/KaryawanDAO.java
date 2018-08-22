@@ -31,14 +31,14 @@ public class KaryawanDAO {
     }
 
     public Karyawan getById(String idKaryawan) {
-        return (Karyawan) this.fdao.getById("FROM Karyawan WHERE idKaryawan='" + idKaryawan + "'");
+        return (Karyawan) this.fdao.getById("FROM Karyawan WHERE id_Karyawan='" + idKaryawan + "'");
     }
 
     public List<Object> search(String category, String data) {
-        return this.fdao.get("FROM Karyawan WHERE REGEXP_LIKE(" + category + ",'%" + data + "%','i')"); // query tersebut merupakan HQL //
+        return this.fdao.get("FROM Karyawan WHERE " +category+ " LIKE '%" +data+ "%'");
     }
 
     public String getIdKaryawan() {
-        return (String) this.fdao.getById("Select CONCAT('K',LPAD((TO_NUMBER(SUBSTR(MAX(id_karyawan),4,3))+1),4, '0')) FROM Karyawan");
+        return (String) this.fdao.getById("Select CONCAT('K',LPAD((TO_NUMBER(SUBSTR(MAX(id_Karyawan),4,3))+1),4, '0')) FROM Karyawan");
     }
 }

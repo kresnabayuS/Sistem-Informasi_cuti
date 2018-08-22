@@ -16,9 +16,9 @@ import tools.HibernateUtil;
 
 /**
  *
- * @author kresna bayu
+ * @author Simbok_pc
  */
-public class TambahKaryawanServlet extends HttpServlet {
+public class EditKaryawanServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,23 +32,26 @@ public class TambahKaryawanServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-          String id = request.getParameter("txtIdKaryawan");
+        String id = request.getParameter("txtIdKaryawan");
         String nama = request.getParameter("txtNamaKaryawan");
         String email = request.getParameter("txtEmail");
         String alamat = request.getParameter("txtAlamat");
         String jatah = request.getParameter("txtJatahCuti");
         String sisa = request.getParameter("txtSisaCuti");
-        String jabatan = request.getParameter("cmbJabatan");
-        String role = request.getParameter("cmbRole");
-        String password = request.getParameter("txtPassword");
+        String jab = request.getParameter("txtJabatan");
+        String role = request.getParameter("txtIdRole");
+        String pass = request.getParameter("txtPassword");
+
         try (PrintWriter out = response.getWriter()) {
-KaryawanController kc = new KaryawanController(HibernateUtil.getSessionFactory());
-            if (kc.saveOrUpdate(id, nama, email, alamat, jatah, sisa, password, jabatan, role)){
+            KaryawanController kc = new KaryawanController(HibernateUtil.getSessionFactory());
+            if (kc.saveOrUpdate(id, nama, email, alamat, jatah, sisa, jab, role, pass)) {
+                
                 response.sendRedirect("views/karyawanView.jsp");
             } else {
-                out.println("Gagal.");
+                out.println("Coba lagi!");
             }
-        } 
+            
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

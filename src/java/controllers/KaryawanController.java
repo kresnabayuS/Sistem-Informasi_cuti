@@ -5,13 +5,10 @@
  */
 package controllers;
 
-import daos.FunctionDAO;
 import daos.KaryawanDAO;
-import entities.Dtcuti;
 import entities.Jabatan;
 import entities.Karyawan;
 import entities.Role;
-import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,8 +35,12 @@ public class KaryawanController {
 //        Karyawan karyawan = new Karyawan(idKaryawan, namaKaryawan, email, alamat, new BigInteger(jatahCuti), new BigInteger(sisaCuti), password, new Jabatan(idJabatan), new Role(idRole));
 //        return this.kdao.insertOrUpdate(karyawan);
 //    }
-    public boolean saveOrUpdate(String idKaryawan, String namaKaryawan, String email, String alamat, String jatahCuti, String sisaCuti, String password, String idJabatan, String idRole) {
-        Karyawan k = new Karyawan(idKaryawan, namaKaryawan, email, alamat, new BigInteger(jatahCuti), new BigInteger(sisaCuti), password, new Jabatan(idJabatan), new Role(idRole));
+    public boolean saveOrUpdate(String idKaryawan, String namaKaryawan, 
+            String email, String alamat, String jatahCuti, String sisaCuti, 
+            String password, String idJabatan, String idRole) {
+        Karyawan k = new Karyawan(idKaryawan, namaKaryawan, email, alamat, 
+                new BigInteger(jatahCuti), new BigInteger(sisaCuti), 
+                BCrypt.hashpw(password, BCrypt.gensalt(12)), new Jabatan(idJabatan), new Role(idRole));
         return this.kdao.insertOrUpdate(k);
     }
 
@@ -71,9 +72,20 @@ public class KaryawanController {
     public String getIdKaryawan() {
         return this.kdao.getIdKaryawan();
     }
+    
+    public boolean login (String id, String password){
+        Karyawan karyawan = (Karyawan) kdao.getById(id);
+        return BCrypt.checkpw(password, karyawan.getPassword());
+    }
 
     public boolean login(String category, String email, String password) {
-        Karyawan karyawan = (Karyawan) kdao.search(category, email).get(0);
-        return BCrypt.checkpw(password, karyawan.getPassword());
+        Karyawan kar = (Karyawan) kdao.search(category,email).get(0);
+        System.err.println(kar.getIdKaryawan()+","+kar.getEmail());
+        return BCrypt.checkpw(password, kar.getPassword());
+    }
+    
+    public Karyawan getByCategory (String category, String value){
+        Karyawan kar = (Karyawan) kdao.search(category, value).get(0);
+        return this.kdao.getById(kar.getIdKaryawan());
     }
 }

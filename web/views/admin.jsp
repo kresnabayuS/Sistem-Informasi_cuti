@@ -11,6 +11,10 @@
 <%@page import="entities.Jabatan"%>
 <%@page import="entities.Role"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<% if (session.getAttribute("email") == null) {
+        response.sendRedirect("login.jsp");
+    } else { %>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -49,6 +53,7 @@
             </button>
 
             <!-- Navbar -->
+
             <form class="d-none d-md-inline-block form-inline ml-auto ">
                 <div class="input-group">                  
                     <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -69,7 +74,7 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="admin.jsp">
                         <i class="fas fa-fw fa-home"></i>
-                        <span>Beranda</span>
+                        <span>Home</span>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -79,10 +84,21 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="../charts.html">
+                    <a class="nav-link" href="karyawanPage.jsp">
                         <i class="fas fa-fw fa-table"></i>
-                        <span>Data Karyawan Cuti</span></a>
+                        <span>Karyawan Cuti</span></a>
                 </li>
+                <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-fw fa-folder"></i>
+            <span>Data Karyawan</span>
+          </a>
+          <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+            <h6 class="dropdown-header">Data Cuti:</h6>
+            <a class="dropdown-item" href="dtcutiView.jsp">Detail Cuti</a>
+            <a class="dropdown-item" href="dtCutiKhususView.jsp">Detail Cuti Khusus</a>
+          </div>
+        </li>
             </ul>
 
             <div id="content-wrapper">
@@ -93,223 +109,73 @@
                         <li class="breadcrumb-item">
                             <a href="#">Home</a>
                         </li>
-                        <li class="breadcrumb-item active">Overview</li>
+                        <li class="breadcrumb-item active">Welcome...</li>
                     </ol>                    
 
                     <!-- DataTables Example -->
-                    <div class="card mb-3">
-                        <div class="card-header">
 
-                            <i class="fas fa-table"></i>
-                            Data Table Karyawan</div>
-                        <div class="card-body">
-                            <!--Button Add-->
-                            <div class="container-login100-form-btn">
-                                <a class="btn btn-success" href="" data-toggle="modal"
-                                   data-target="#modaltambah">Add Data </a>
+
+                    <!-- /.container-fluid -->
+
+                    <!-- Sticky Footer -->
+                    <footer class="sticky-footer">
+                        <div class="container my-auto">
+                            <div class="copyright text-center my-auto">
+                                <span>Copyright © Your Website 2018</span>
                             </div>
-                            
-                            <% KaryawanController kc = new KaryawanController(HibernateUtil.getSessionFactory()); %>
-                            <p>
-                            <div class="table-responsive">
+                        </div>
+                    </footer>
 
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-
-                                    <thead>
-                                        <tr>
-                                        <tr>
-                                            <th>No</th>
-                                            <th>Karyawan ID</th>
-                                            <th>Nama Karyawan</th>
-                                            <th>Email</th>
-                                            <th>Alamat</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tfoot>
-                                        <tr>
-                                        <tr>
-                                            <th>No</th>
-                                            <th>Karyawan ID</th>
-                                            <th>Nama Karyawan</th>
-                                            <th>Email</th>
-                                            <th>Alamat</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </tfoot>
-                                    <tbody>
-                                        <% int i = 1;
-                    for (Karyawan karyawan : kc.getAll()) {
-                                        %>                
-                                        <tr>
-                                            <td><%= i%></td>
-                                            <td><%= karyawan.getIdKaryawan()%></td>
-                                            <td><%= karyawan.getNamaKaryawan()%></td>
-                                            <td><%= karyawan.getEmail()%></td>
-                                            <td><%= karyawan.getAlamat()%></td>
-                                            
-                                        </tr>
-                                        <% i++;}  %>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>                    
-                    </div>
                 </div>
+                <!-- /.content-wrapper -->
 
-                <!-- modal Add-->
-                <div class="modal fade" id="modaltambah" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <form action="../tambahKaryawanServlet" method="POST">
-                                <div class="modal-header text-center">
-                                    <h4 class="modal-title w-100 font-weight-bold">Add Data</h4>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body mx-3">
-                                    <div class="md-form mb-5">
-                                        <% 
-                                           String id = kc.getIdKaryawan();%>
-                                        <i class="fa fa-user prefix grey-text"></i>
-                                        <label data-error="wrong" data-success="right" for="orangeForm-name">Karyawan ID</label>
-                                        <input type="text" id="orangeForm-name" class="form-control validate"  name="txtIdKaryawan" value="<%= id%>" >
-                                    </div>
+            </div>
+            <!-- /#wrapper -->
 
-                                    <div class="md-form mb-5">
-                                        <i class="fa fa-user prefix grey-text"></i>
-                                        <label data-error="wrong" data-success="right" for="orangeForm-name"  >Nama Karyawan</label>
-                                        <input type="text" id="orangeForm-name" class="form-control validate" name="txtNamaKaryawan">
-                                    </div>
+            <!-- Scroll to Top Button-->
+            <a class="scroll-to-top rounded" href="#page-top">
+                <i class="fas fa-angle-up"></i>
+            </a>
 
-                                    <div class="md-form mb-5">
-                                        <i class="fa fa-address-card prefix grey-text"></i>
-                                        <label data-error="wrong" data-success="right" for="orangeForm-name"  >Email</label>
-                                        <input type="text" id="orangeForm-name" class="form-control validate" name="txtEmail">
-                                    </div>
-
-                                    <div class="md-form mb-5">
-                                        <i class="fa fa-home prefix grey-text"></i>
-                                        <label data-error="wrong" data-success="right" for="orangeForm-name"  >Alamat</label>
-                                        <input type="text" id="orangeForm-name" class="form-control validate" name="txtAlamat">
-                                    </div>
-
-                                    <div class="md-form mb-5">
-                                        <i class="fa fa-times-circle prefix grey-text"></i>
-                                        <label data-error="wrong" data-success="right" for="orangeForm-name"  >Jatah Cuti</label>
-                                        <input type="text" id="orangeForm-name" class="form-control validate" name="txtJatahCuti">
-                                    </div>
-
-                                    <div class="md-form mb-5">
-                                        <i class="fa fa-user prefix grey-text"></i>
-                                        <label data-error="wrong" data-success="right" for="orangeForm-name"  >Sisa Cuti</label>
-                                        <input type="text" id="orangeForm-name" class="form-control validate" name="txtSisaCuti">
-                                    </div>
-
-                                    <div class="md-form mb-5">
-                                        <i class="fa fa-user prefix grey-text"></i>
-                                        <label data-error="wrong" data-success="right" for="orangeForm-name"  >Jabatan</label>
-                                        <select class="form-control" name="cmbJabatan">
-                                            <%
-                                    JabatanController jc = new JabatanController(HibernateUtil.getSessionFactory());
-                                     for (Jabatan jabatan : jc.getAll()){
-                                            %><option value="<%= jabatan.getIdJabatan() %>"><%= jabatan.getNamaJabatan() %></option>
-                                            <%
-                                                    }
-                                            %>
-                                        </select>
-                                    </div>
-
-                                    <div class="md-form mb-5">
-                                        <i class="fa fa-user prefix grey-text"></i>
-                                        <label data-error="wrong" data-success="right" for="orangeForm-name"  >Role</label>
-                                        <select class="form-control" name="cmbRole">
-                                            <%
-                                       RoleController rc = new RoleController(HibernateUtil.getSessionFactory());
-                                
-                                       for (Role role : rc.getAll()){
-                                            %><option value="<%= role.getIdRole() %>"><%= role.getNamaRole() %></option>
-                                            <%
-                                                }
-                                            %>  
-                                        </select>
-                                    </div>
-
-                                    <div class="md-form mb-5">
-                                        <i class="fa fa-user prefix grey-text"></i>
-                                        <label data-error="wrong" data-success="right" for="orangeForm-name"  >Password</label>
-                                        <input type="text" id="orangeForm-name" class="form-control validate" name="txtPassword">
-                                    </div>
-
-                                </div>
-                                <div class="modal-footer d-flex justify-content-center">
-                                    <button class="btn btn-deep-orange" type="submit">Add</button>
-                                </div>
-                            </form>
+            <!-- Logout Modal-->
+            <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                        <div class="modal-footer">
+                            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                            <a class="btn btn-primary" href="login.jsp">Logout</a>
                         </div>
                     </div>
                 </div>
-                <!-- /.container-fluid -->
-
-                <!-- Sticky Footer -->
-                <footer class="sticky-footer">
-                    <div class="container my-auto">
-                        <div class="copyright text-center my-auto">
-                            <span>Copyright © Your Website 2018</span>
-                        </div>
-                    </div>
-                </footer>
-
             </div>
-            <!-- /.content-wrapper -->
 
-        </div>
-        <!-- /#wrapper -->
+            <!-- Bootstrap core JavaScript-->
+            <script src="../vendor/jquery/jquery.min.js"></script>
+            <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-        <!-- Scroll to Top Button-->
-        <a class="scroll-to-top rounded" href="#page-top">
-            <i class="fas fa-angle-up"></i>
-        </a>
+            <!-- Core plugin JavaScript-->
+            <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
 
-        <!-- Logout Modal-->
-        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                    <div class="modal-footer">
-                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                        <a class="btn btn-primary" href="login.jsp">Logout</a>
-                    </div>
-                </div>
-            </div>
-        </div>
+            <!-- Page level plugin JavaScript-->
+            <script src="../vendor/chart.js/Chart.min.js"></script>
+            <script src="../vendor/datatables/jquery.dataTables.js"></script>
+            <script src="../vendor/datatables/dataTables.bootstrap4.js"></script>
 
-        <!-- Bootstrap core JavaScript-->
-        <script src="../vendor/jquery/jquery.min.js"></script>
-        <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+            <!-- Custom scripts for all pages-->
+            <script src="../js/sb-admin.min.js"></script>
 
-        <!-- Core plugin JavaScript-->
-        <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
-
-        <!-- Page level plugin JavaScript-->
-        <script src="../vendor/chart.js/Chart.min.js"></script>
-        <script src="../vendor/datatables/jquery.dataTables.js"></script>
-        <script src="../vendor/datatables/dataTables.bootstrap4.js"></script>
-
-        <!-- Custom scripts for all pages-->
-        <script src="../js/sb-admin.min.js"></script>
-
-        <!-- Demo scripts for this page-->
-        <script src="../js/demo/datatables-demo.js"></script>
-        <script src="../js/demo/chart-area-demo.js"></script>
+            <!-- Demo scripts for this page-->
+            <script src="../js/demo/datatables-demo.js"></script>
+            <script src="../js/demo/chart-area-demo.js"></script>
 
     </body>
 
 </html>
+<% } %>

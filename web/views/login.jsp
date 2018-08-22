@@ -31,16 +31,16 @@
             <div class="card card-login mx-auto mt-5">
                 <div class="card-header"> Login</div>
                 <div class="card-body">
-                    <form>
+                    <form  action="../validationServlet" method="GET" >
                         <div class="form-group">
                             <div class="form-label-group">
-                                <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required="required" autofocus="autofocus">
+                                <input type="text"name="txtEmail" id="inputEmail" class="form-control" placeholder="Email address" required="required" autofocus="autofocus">
                                 <label for="inputEmail">Email address</label>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="form-label-group">
-                                <input type="password" id="inputPassword" class="form-control" placeholder="Password" required="required">
+                                <input type="password" name="txtPassword" id="inputPassword" class="form-control" placeholder="Password" required="required">
                                 <label for="inputPassword">Password</label>
                             </div>
                         </div>
@@ -52,7 +52,7 @@
                                 </label>
                             </div>
                         </div>
-                        <a class="btn btn-primary btn-block" href="admin.jsp">Login</a>
+                        <input type="submit" name="submit" value="Login">
                     </form>
                     <div class="text-center">
                         <!--<a class="d-block small mt-3" href="register.jsp">Register an Account</a>-->

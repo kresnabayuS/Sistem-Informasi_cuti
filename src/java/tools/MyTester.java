@@ -20,29 +20,12 @@ import method.BCrypt;
  */
 public class MyTester {
 
-    private static int workload = 10;
-
-    public static String hashPassword(String password_plaintext) {
-        String salt = BCrypt.gensalt(workload);
-        String hashed_password = BCrypt.hashpw(password_plaintext, salt);
-        return (hashed_password);
-    }
-
-    public static void checkPass(String plainPassword, String hashedPassword) {
-        if (BCrypt.checkpw(plainPassword, hashedPassword)) {
-            System.out.println("Password Matched");
-        } else {
-            System.out.println("Password Doesnt Match");
-        }
-    }
-
     public static void main(String[] args) {
-        String password = "kresna";
-        Date date = new Date();
-        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-        DateFormat jam = new SimpleDateFormat("HH:mm:ss");
-        String dateString = dateFormat.format(date);
-        System.out.println("ChiperPassword dari kresna = "+hashPassword(password));
-        
+        System.out.println(HibernateUtil.getSessionFactory());
+        System.out.println("oke");
+
+        KaryawanController kc = new KaryawanController(HibernateUtil.getSessionFactory());
+        System.out.println(BCrypt.hashpw("kresna12", BCrypt.gensalt(12)));
+        System.out.println(BCrypt.checkpw("kresna12", BCrypt.hashpw("kresna12", BCrypt.gensalt(12))));
     }
 }

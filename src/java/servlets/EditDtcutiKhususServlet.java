@@ -5,9 +5,11 @@
  */
 package servlets;
 
-import controllers.KaryawanController;
+import controllers.DtcutikhususController;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -18,7 +20,7 @@ import tools.HibernateUtil;
  *
  * @author kresna bayu
  */
-public class TambahKaryawanServlet extends HttpServlet {
+public class EditDtcutiKhususServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,23 +34,21 @@ public class TambahKaryawanServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-          String id = request.getParameter("txtIdKaryawan");
-        String nama = request.getParameter("txtNamaKaryawan");
-        String email = request.getParameter("txtEmail");
-        String alamat = request.getParameter("txtAlamat");
-        String jatah = request.getParameter("txtJatahCuti");
-        String sisa = request.getParameter("txtSisaCuti");
-        String jabatan = request.getParameter("cmbJabatan");
-        String role = request.getParameter("cmbRole");
-        String password = request.getParameter("txtPassword");
+        String iddet = request.getParameter("txtIdDtcutiKhusus");
+        String idkar = request.getParameter("txtIdKaryawan");
+        String idcut = request.getParameter("txtIdCutiKhusus");
+        String stat = request.getParameter("cmbStatus");
+
         try (PrintWriter out = response.getWriter()) {
-KaryawanController kc = new KaryawanController(HibernateUtil.getSessionFactory());
-            if (kc.saveOrUpdate(id, nama, email, alamat, jatah, sisa, password, jabatan, role)){
-                response.sendRedirect("views/karyawanView.jsp");
+            DtcutikhususController dc = new DtcutikhususController(HibernateUtil.getSessionFactory());
+            if (dc.saveOrEdit(iddet, stat, idcut, idkar)) {
+                response.sendRedirect("views/dtCutiKhususView.jsp");
             } else {
                 out.println("Gagal.");
             }
-        } 
+        } catch (Exception ex) {
+            Logger.getLogger(EditDtcutiKhususServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -36,6 +36,26 @@
         <servlet-name>KaryawanServlet</servlet-name>
         <servlet-class>servlets.KaryawanServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>EditKaryawanServlet</servlet-name>
+        <servlet-class>servlets.EditKaryawanServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DtcutiKhususServlet</servlet-name>
+        <servlet-class>servlets.DtcutiKhususServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DtcutiServlet</servlet-name>
+        <servlet-class>servlets.DtcutiServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditDtcutiKhususServlet</servlet-name>
+        <servlet-class>servlets.EditDtcutiKhususServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditDtcutiServlet</servlet-name>
+        <servlet-class>servlets.EditDtcutiServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>JabatanViewServlet</servlet-name>
         <url-pattern>/jabatanViewServlet</url-pattern>
@@ -71,6 +91,26 @@
     <servlet-mapping>
         <servlet-name>KaryawanServlet</servlet-name>
         <url-pattern>/karyawanServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditKaryawanServlet</servlet-name>
+        <url-pattern>/editKaryawanServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DtcutiKhususServlet</servlet-name>
+        <url-pattern>/dtcutiKhususServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DtcutiServlet</servlet-name>
+        <url-pattern>/dtcutiServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditDtcutiKhususServlet</servlet-name>
+        <url-pattern>/editDtcutiKhususServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditDtcutiServlet</servlet-name>
+        <url-pattern>/editDtcutiServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

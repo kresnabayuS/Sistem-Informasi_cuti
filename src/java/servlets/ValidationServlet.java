@@ -8,7 +8,6 @@ package servlets;
 import controllers.KaryawanController;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Date;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -38,26 +37,28 @@ public class ValidationServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String email = request.getParameter("txtEmail");
         String password = request.getParameter("txtPassword");
-        String salt = BCrypt.gensalt(10);
-        Date date = new Date();
+        String salt = BCrypt.gensalt(12);
         HttpSession session = request.getSession();
         RequestDispatcher dispatcher = null;
-        KaryawanController kc = new KaryawanController(HibernateUtil.getSessionFactory());
+
         try (PrintWriter out = response.getWriter()) {
-            session.setAttribute("email", email);
+            KaryawanController kc = new KaryawanController(HibernateUtil.getSessionFactory());
             if (email == "" || email == null || password == "" || password == null) {
                 out.println("Isikan Email/Password");
             } else {
                 if (kc.login("email", email, password)) {
+
+                    session.setAttribute("email", email);
                     response.sendRedirect("views/admin.jsp");
-                }else {
+                } else {
                     response.sendRedirect("views/login.jsp");
+                   
                 }
             }
         }
     }
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *

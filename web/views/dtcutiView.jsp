@@ -17,7 +17,7 @@
     <body>
         <h1>Data Detail Cuti</h1>
         <% DtcutiController dc = new DtcutiController(HibernateUtil.getSessionFactory()); %>
-        
+
         <table border="1">
             <thead>
                 <tr>
@@ -27,25 +27,35 @@
                     <th>Lama Cuti</th>
                     <th>Cuti ID</th>
                     <th>Status</th>
+                    <th>Action</th>
                 </tr>
             </thead>
-            
+
             <tbody>
                 <% int i = 1;
-                    for (Dtcuti dtcuti : dc.getAll()) {%> 
+                    for (Dtcuti dtcuti : dc.getAll()) {
+                %> 
                 <tr>
                     <td><%= i %></td>
                     <td><%= dtcuti.getIdDtcuti() %></td>
-                    <td><%= dtcuti.getIdKaryawan().getIdKaryawan() %></td>
+                    <td><%= dtcuti.getIdKaryawan().getNamaKaryawan() %></td>
                     <td><%= dtcuti.getLamaCuti() %></td>
                     <td><%= dtcuti.getIdCuti().getIdCuti() %></td>
-                    <td><%= dtcuti.getStatus()%></td>
+                    <td><% if (dtcuti.getStatus() == null) {
+                            out.print("Menunggu");
+                        } else {
+                            out.print(dtcuti.getStatus());
+                        }
+                        %></td>
+                    <td>
+                        <a href="../dtcutiServlet?id=<%= dtcuti.getIdDtcuti() %>">Edit</a>
+                    </td>
                 </tr>
-                 <%
-                        i++;
-                     }
-                 %>
-                
+                <%
+                       i++;
+                    }
+                %>
+
             </tbody>
     </body>
 </html>

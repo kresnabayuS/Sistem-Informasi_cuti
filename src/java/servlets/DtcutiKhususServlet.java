@@ -5,20 +5,22 @@
  */
 package servlets;
 
-import controllers.KaryawanController;
+import controllers.DtcutikhususController;
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import tools.HibernateUtil;
 
 /**
  *
  * @author kresna bayu
  */
-public class TambahKaryawanServlet extends HttpServlet {
+public class DtcutiKhususServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,23 +34,16 @@ public class TambahKaryawanServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-          String id = request.getParameter("txtIdKaryawan");
-        String nama = request.getParameter("txtNamaKaryawan");
-        String email = request.getParameter("txtEmail");
-        String alamat = request.getParameter("txtAlamat");
-        String jatah = request.getParameter("txtJatahCuti");
-        String sisa = request.getParameter("txtSisaCuti");
-        String jabatan = request.getParameter("cmbJabatan");
-        String role = request.getParameter("cmbRole");
-        String password = request.getParameter("txtPassword");
+        String id = request.getParameter("id");
+        HttpSession session = request.getSession();
+        DtcutikhususController dc = new DtcutikhususController(HibernateUtil.getSessionFactory());
+        RequestDispatcher dispatcher = null;
+        
         try (PrintWriter out = response.getWriter()) {
-KaryawanController kc = new KaryawanController(HibernateUtil.getSessionFactory());
-            if (kc.saveOrUpdate(id, nama, email, alamat, jatah, sisa, password, jabatan, role)){
-                response.sendRedirect("views/karyawanView.jsp");
-            } else {
-                out.println("Gagal.");
-            }
-        } 
+            session.setAttribute("id", dc.getById(id));
+            dispatcher = request.getRequestDispatcher("views/editDtcutiKhususView.jsp");
+            dispatcher.include(request, response);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

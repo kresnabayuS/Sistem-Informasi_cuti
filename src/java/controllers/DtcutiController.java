@@ -31,10 +31,11 @@ public class DtcutiController {
         this.ddao = new DtcutiDAO(factory);
     }
     
-    public boolean saveOrEdit(String idDtcuti, String status, BigInteger lamaCuti, Cuti idCuti, Karyawan idKaryawan){
-        Dtcuti dtcuti = new Dtcuti(idDtcuti, status, lamaCuti, idCuti,idKaryawan);
+   public boolean saveOrEdit(String idDtcuti, String status, String lamaCuti, String idCuti, String idKaryawan){
+        Dtcuti dtcuti = new Dtcuti(idDtcuti, status, new BigInteger(lamaCuti), new Cuti(idCuti), new Karyawan(idKaryawan));
         return this.ddao.insertOrUpdate(dtcuti);
     }
+
     
     private List<Dtcuti> convertToListDtcuti(List<Object> dataAwal) {
         List<Dtcuti> datas = new ArrayList<>();
