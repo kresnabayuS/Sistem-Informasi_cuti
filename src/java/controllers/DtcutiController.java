@@ -6,7 +6,6 @@
 package controllers;
 
 import daos.DtcutiDAO;
-import daos.FunctionDAO;
 import entities.Cuti;
 import entities.Dtcuti;
 import entities.Karyawan;
@@ -30,12 +29,10 @@ public class DtcutiController {
     public DtcutiController(SessionFactory factory) {
         this.ddao = new DtcutiDAO(factory);
     }
-    
-   public boolean saveOrEdit(String idDtcuti, String status, String lamaCuti, String idCuti, String idKaryawan){
+public boolean saveOrEdit(String idDtcuti, String status, String lamaCuti, String idCuti, String idKaryawan){
         Dtcuti dtcuti = new Dtcuti(idDtcuti, status, new BigInteger(lamaCuti), new Cuti(idCuti), new Karyawan(idKaryawan));
         return this.ddao.insertOrUpdate(dtcuti);
     }
-
     
     private List<Dtcuti> convertToListDtcuti(List<Object> dataAwal) {
         List<Dtcuti> datas = new ArrayList<>();

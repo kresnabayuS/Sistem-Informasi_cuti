@@ -3,13 +3,19 @@
     Created on : Aug 15, 2018, 3:34:23 PM
     Author     : kresna bayu
 --%>
-
-<%@page import="controllers.CutiKhususController"%>
+<%@page import="entities.Dtcuti"%>
+<%@page import="entities.Dtcutikhusus"%>
 <%@page import="entities.Cuti"%>
-<%@page import="controllers.CutiController"%>
+<%@page import="entities.CutiKhusus"%>
 <%@page import="tools.HibernateUtil"%>
+<%@page import="controllers.DtcutiController"%>
+<%@page import="controllers.DtcutikhususController"%>
+<%@page import="controllers.CutiController"%>
+<%@page import="controllers.CutiKhususController"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
+<% if (session.getAttribute("email") == null) {
+        response.sendRedirect("login.jsp");
+    } else { %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -84,21 +90,24 @@
                     <div class="card-header">
 
 
-                        <% CutiController cc = new CutiController(HibernateUtil.getSessionFactory()); %>
+                        <% int i = 1;
+                        DtcutiController dc = new DtcutiController(HibernateUtil.getSessionFactory()); 
+                        CutiController cc = new CutiController(HibernateUtil.getSessionFactory());
+                        DtcutikhususController dtc = new DtcutikhususController(HibernateUtil.getSessionFactory()); 
+                        CutiKhususController ck = new CutiKhususController(HibernateUtil.getSessionFactory());
+                        %>
                         <p>
                         <div class="table-responsive">
 
-                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-
-                                <thead>
-                                    <tr>
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0"><thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Cuti ID</th>
+                                        <th>ID Karyawan</th>
+                                        <th>Nama Karyawan</th>
                                         <th>Tanggal Awal</th>
                                         <th>Tanggal Akhir</th>
-                                        <th>Keterangan</th>
-
+                                        <th>Lama Cuti</th>
+                                        <th>Status</th>
                                     </tr>
                                 </thead>
                                 <tfoot>
@@ -106,23 +115,47 @@
 
                                 </tfoot>
                                 <tbody>
-                                    <% int i = 1;
-                    for (Cuti cuti : cc.getAll()) {
+                                    <% for (Cuti cuti : cc.getAll()){
+                                        for (Dtcuti dtcuti : cuti.getDtcutiList()) {
                                     %>               
                                     <tr>
                                         <td><%= i %></td>
-                                        <td><%= cuti.getIdCuti() %></td>
+                                        <td><%= dtcuti.getIdKaryawan().getIdKaryawan() %></td>
+                                        <td><%= dtcuti.getIdKaryawan().getNamaKaryawan() %></td>
                                         <td><%= cuti.getTanggalAwal() %></td>
                                         <td><%= cuti.getTanggalAkhir() %></td>
-                                        <td><%= cuti.getKeterangan() %></td>
-                                        <td>
-
-                                        </td>
+                                        <td><%= dtcuti.getLamaCuti() %></td>
+                                        <td><% if (dtcuti.getStatus() == null) {
+                                                out.print("Menunggu");
+                                            } else {
+                                                out.print(dtcuti.getStatus());
+                                            }
+                                            %></td>
                                     </tr>
-                                    <%
-                      i++;
-                   }
+                                    <% 
+                    i++;
+                    }
+                 }
+                    int j = i;
+                    for (CutiKhusus cutikhusus : ck.getAll()){
+                     for (Dtcutikhusus dtcutikhusus : cutikhusus.getDtcutikhususList()) {
                                     %>
+                                    <tr>
+                                        <td><%= j %></td>
+                                        <td><%= dtcutikhusus.getIdKaryawan().getIdKaryawan() %></td>
+                                        <td><%= dtcutikhusus.getIdKaryawan().getNamaKaryawan() %></td>
+                                        <td><%= cutikhusus.getTanggalAwal() %></td>
+                                        <td><%= cutikhusus.getTanggalAkhir() %></td>
+                                        <td><%= cutikhusus.getLamaCutiKhusus() %></td>
+                                        <td><% if (dtcutikhusus.getStatus() == null) {
+                                                out.print("Menunggu");
+                                            } else {
+                                                out.print(dtcutikhusus.getStatus());
+                                            }
+                                            %></td>
+                                    </tr>
+                                    <% j++;    }
+                                        }  %>
                                 </tbody>
                             </table>
                         </div>
@@ -131,20 +164,6 @@
                 </div>
 
             </div>
-
-
-            <!--                                <div class="col-md-6 col-lg-4">
-                                                <a class="portfolio-item d-block mx-auto" href="#portfolio-modal-1">
-                                                    <div class="portfolio-item-caption d-flex position-absolute h-100 w-100">
-                                                        <div class="portfolio-item-caption-content my-auto w-100 text-center text-white">
-                                                            <i class="fa fa-search-plus fa-3x"></i>
-                                                        </div>
-                                                    </div>
-                                                    <img class="img-fluid" src="../images/portfolio/cabin.png" alt="">
-                                                </a>
-                                            </div>
-            -->
-
         </section>
 
         <!-- Leave Req Section -->
@@ -246,8 +265,8 @@
                 <div class="row">
                     <div class="col-md-4 mb-5 mb-lg-0">
                         <h4 class="text-uppercase mb-4">Location</h4>
-                        <p class="lead mb-0">2215 John Daniel Drive
-                            <br>Clark, MO 65243</p>
+                        <p class="lead mb-0">Jakarta
+                            <br>Indonesia</p>
                     </div>
                     <div class="col-md-4 mb-5 mb-lg-0">
                         <h4 class="text-uppercase mb-4">Around the Web</h4>
@@ -280,9 +299,9 @@
                         </ul>
                     </div>
                     <div class="col-md-4">
-                        <h4 class="text-uppercase mb-4">About Freelancer</h4>
-                        <p class="lead mb-0">Freelance is a free to use, open source Bootstrap theme created by
-                            <a href="http://startbootstrap.com">Start Bootstrap</a>.</p>
+                        <h4 class="text-uppercase mb-4">Leave Request</h4>
+                        <p class="lead mb-0">
+                        </p>
                     </div>
                 </div>
             </div>
@@ -290,7 +309,7 @@
 
         <div class="copyright py-4 text-center text-white">
             <div class="container">
-                <small>Copyright &copy; Your Website 2018</small>
+                <small>Copyright &copy; Leave Request 2018</small>
             </div>
         </div>
 
@@ -301,139 +320,6 @@
             </a>
         </div>
 
-        <!-- Portfolio Modals -->
-
-        <!-- Portfolio Modal 1 -->
-        <div class="portfolio-modal mfp-hide" id="portfolio-modal-1">
-            <div class="portfolio-modal-dialog bg-white">
-                <a class="close-button d-none d-md-block portfolio-modal-dismiss" href="#">
-                    <i class="fa fa-3x fa-times"></i>
-                </a>
-                <div class="container text-center">
-                    <div class="row">
-                        <div class="col-lg-8 mx-auto">
-                            <h2 class="text-secondary text-uppercase mb-0">Project Name</h2>
-                            <hr class="star-dark mb-5">
-                            <img class="img-fluid mb-5" src="../images/portfolio/cabin.png" alt="">
-                            <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>
-                            <a class="btn btn-primary btn-lg rounded-pill portfolio-modal-dismiss" href="#">
-                                <i class="fa fa-close"></i>
-                                Close Project</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Portfolio Modal 2 -->
-        <div class="portfolio-modal mfp-hide" id="portfolio-modal-2">
-            <div class="portfolio-modal-dialog bg-white">
-                <a class="close-button d-none d-md-block portfolio-modal-dismiss" href="#">
-                    <i class="fa fa-3x fa-times"></i>
-                </a>
-                <div class="container text-center">
-                    <div class="row">
-                        <div class="col-lg-8 mx-auto">
-                            <h2 class="text-secondary text-uppercase mb-0">Project Name</h2>
-                            <hr class="star-dark mb-5">
-                            <img class="img-fluid mb-5" src="../images/portfolio/cake.png" alt="">
-                            <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>
-                            <a class="btn btn-primary btn-lg rounded-pill portfolio-modal-dismiss" href="#">
-                                <i class="fa fa-close"></i>
-                                Close Project</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Portfolio Modal 3 -->
-        <div class="portfolio-modal mfp-hide" id="portfolio-modal-3">
-            <div class="portfolio-modal-dialog bg-white">
-                <a class="close-button d-none d-md-block portfolio-modal-dismiss" href="#">
-                    <i class="fa fa-3x fa-times"></i>
-                </a>
-                <div class="container text-center">
-                    <div class="row">
-                        <div class="col-lg-8 mx-auto">
-                            <h2 class="text-secondary text-uppercase mb-0">Project Name</h2>
-                            <hr class="star-dark mb-5">
-                            <img class="img-fluid mb-5" src="../images/portfolio/circus.png" alt="">
-                            <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>
-                            <a class="btn btn-primary btn-lg rounded-pill portfolio-modal-dismiss" href="#">
-                                <i class="fa fa-close"></i>
-                                Close Project</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Portfolio Modal 4 -->
-        <div class="portfolio-modal mfp-hide" id="portfolio-modal-4">
-            <div class="portfolio-modal-dialog bg-white">
-                <a class="close-button d-none d-md-block portfolio-modal-dismiss" href="#">
-                    <i class="fa fa-3x fa-times"></i>
-                </a>
-                <div class="container text-center">
-                    <div class="row">
-                        <div class="col-lg-8 mx-auto">
-                            <h2 class="text-secondary text-uppercase mb-0">Project Name</h2>
-                            <hr class="star-dark mb-5">
-                            <img class="img-fluid mb-5" src="../images/portfolio/game.png" alt="">
-                            <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>
-                            <a class="btn btn-primary btn-lg rounded-pill portfolio-modal-dismiss" href="#">
-                                <i class="fa fa-close"></i>
-                                Close Project</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Portfolio Modal 5 -->
-        <div class="portfolio-modal mfp-hide" id="portfolio-modal-5">
-            <div class="portfolio-modal-dialog bg-white">
-                <a class="close-button d-none d-md-block portfolio-modal-dismiss" href="#">
-                    <i class="fa fa-3x fa-times"></i>
-                </a>
-                <div class="container text-center">
-                    <div class="row">
-                        <div class="col-lg-8 mx-auto">
-                            <h2 class="text-secondary text-uppercase mb-0">Project Name</h2>
-                            <hr class="star-dark mb-5">
-                            <img class="img-fluid mb-5" src="../images/portfolio/safe.png" alt="">
-                            <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>
-                            <a class="btn btn-primary btn-lg rounded-pill portfolio-modal-dismiss" href="#">
-                                <i class="fa fa-close"></i>
-                                Close Project</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Portfolio Modal 6 -->
-        <div class="portfolio-modal mfp-hide" id="portfolio-modal-6">
-            <div class="portfolio-modal-dialog bg-white">
-                <a class="close-button d-none d-md-block portfolio-modal-dismiss" href="#">
-                    <i class="fa fa-3x fa-times"></i>
-                </a>
-                <div class="container text-center">
-                    <div class="row">
-                        <div class="col-lg-8 mx-auto">
-                            <h2 class="text-secondary text-uppercase mb-0">Project Name</h2>
-                            <hr class="star-dark mb-5">
-                            <img class="img-fluid mb-5" src="../images/portfolio/submarine.png" alt="">
-                            <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>
-                            <a class="btn btn-primary btn-lg rounded-pill portfolio-modal-dismiss" href="#">
-                                <i class="fa fa-close"></i>
-                                Close Project</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
 
         <!-- modal Add-->
         <div class="modal fade" id="modaltambah" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -489,3 +375,4 @@
     </body>
 
 </html>
+<% } %>

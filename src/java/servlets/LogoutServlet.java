@@ -5,23 +5,21 @@
  */
 package servlets;
 
-import controllers.KaryawanController;
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import method.BCrypt;
-import tools.HibernateUtil;
 
 /**
  *
  * @author kresna bayu
  */
-public class ValidationServlet extends HttpServlet {
+
+public class LogoutServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,30 +33,14 @@ public class ValidationServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String email = request.getParameter("txtEmail");
-        String password = request.getParameter("txtPassword");
-        String salt = BCrypt.gensalt(12);
         HttpSession session = request.getSession();
-        RequestDispatcher dispatcher = null;
-
         try (PrintWriter out = response.getWriter()) {
-            KaryawanController kc = new KaryawanController(HibernateUtil.getSessionFactory());
-            if (email == "" || email == null || password == "" || password == null) {
-                out.println("Isikan Email/Password");
-            } else {
-                if (kc.login("email", email, password)) {
-//                    session.setAttribute("id", kc.getByCategory("email", email).getIdKaryawan());
-                    session.setAttribute("email", email);
-                    response.sendRedirect("views/admin.jsp");
-                } else {
-                    response.sendRedirect("views/login.jsp");
-                   
-                }
-            }
+            session.removeAttribute("email");
+            response.sendRedirect("login.jsp");
         }
     }
-// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
 
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *

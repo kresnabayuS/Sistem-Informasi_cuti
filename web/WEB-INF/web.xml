@@ -56,6 +56,18 @@
         <servlet-name>EditDtcutiServlet</servlet-name>
         <servlet-class>servlets.EditDtcutiServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>LogoutServlet</servlet-name>
+        <servlet-class>servlets.LogoutServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ActionTolak</servlet-name>
+        <servlet-class>servlets.ActionTolak</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ActionTerimaApproval</servlet-name>
+        <servlet-class>servlets.ActionTerimaApproval</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>JabatanViewServlet</servlet-name>
         <url-pattern>/jabatanViewServlet</url-pattern>
@@ -111,6 +123,18 @@
     <servlet-mapping>
         <servlet-name>EditDtcutiServlet</servlet-name>
         <url-pattern>/editDtcutiServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LogoutServlet</servlet-name>
+        <url-pattern>/logoutServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ActionTolak</servlet-name>
+        <url-pattern>/actionTolak</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ActionTerimaApproval</servlet-name>
+        <url-pattern>/actionTerimaApproval</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

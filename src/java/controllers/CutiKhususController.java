@@ -6,14 +6,11 @@
 package controllers;
 
 import daos.CutiKhususDAO;
-import daos.FunctionDAO;
-import entities.Cuti;
 import entities.CutiKhusus;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 /**

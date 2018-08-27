@@ -1,19 +1,24 @@
 <%-- 
-    Document   : dtCutiKhususView
-    Created on : Aug 19, 2018, 3:36:43 PM
+    Document   : detailKaryawanCuti
+    Created on : Aug 21, 2018, 11:17:05 AM
     Author     : Simbok_pc
 --%>
 
+<%@page import="entities.Dtcuti"%>
 <%@page import="entities.Dtcutikhusus"%>
+<%@page import="entities.Cuti"%>
+<%@page import="entities.CutiKhusus"%>
 <%@page import="tools.HibernateUtil"%>
+<%@page import="controllers.DtcutiController"%>
 <%@page import="controllers.DtcutikhususController"%>
+<%@page import="controllers.CutiController"%>
+<%@page import="controllers.CutiKhususController"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <% if (session.getAttribute("email") == null) {
         response.sendRedirect("login.jsp");
     } else { %>
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
     <head>
 
         <meta charset="utf-8">
@@ -22,7 +27,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>Leave Application - Data Detail Cuti Khusus</title>
+        <title>Leave Application - Karyawan Cuti</title>
 
         <!-- Bootstrap core CSS-->
         <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -37,7 +42,6 @@
         <link href="../css/sb-admin.css" rel="stylesheet">
 
     </head>
-
     <body id="page-top">
 
         <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
@@ -105,56 +109,98 @@
                             <a href="admin.jsp">Home</a>
                         </li>
                         <li class="breadcrumb-item active">Data Karyawan</li>
-                    </ol>                    
+                    </ol>
 
                     <!-- DataTables -->
 
                     <div class="card mb-3">
                         <div class="card-header">
                             <i class="fas fa-table"></i>
-                            Data Detail Cuti Khusus </div>
+                            Data Cuti </div>
 
-                        <%
-                            DtcutikhususController dkc = new DtcutikhususController(HibernateUtil.getSessionFactory());
+                        <% 
+                            int i = 1;
+                            DtcutiController dc = new DtcutiController(HibernateUtil.getSessionFactory()); 
+                            CutiController cc = new CutiController(HibernateUtil.getSessionFactory());
+                            DtcutikhususController dtc = new DtcutikhususController(HibernateUtil.getSessionFactory()); 
+                            CutiKhususController ck = new CutiKhususController(HibernateUtil.getSessionFactory());
+            
                         %>
-
                         <p>
                         <div class="table-responsive">
                             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Detail Cuti Khusus ID</th>
-                                        <th>Karyawan ID</th>
-                                        <th>Cuti Khusus ID</th>
+                                        <th>ID Karyawan</th>
+                                        <th>Nama Karyawan</th>
+                                        <th>Tanggal Awal</th>
+                                        <th>Tanggal Akhir</th>
+                                        <th>Lama Cuti</th>
+                                        <th>Keterangan</th>
                                         <th>Status</th>
-                                        <th>Action</th>
+                                        <th>Aksi</th>
                                     </tr>
                                 </thead>
 
                                 <tbody>
-                                    <% int i = 1;
-                                        for (Dtcutikhusus dtcutikhusus : dkc.getAll()) {
+                                    <% 
+                                        for (Cuti cuti : cc.getAll()){
+                                         for (Dtcuti dtcuti : cuti.getDtcutiList()) {
                                     %> 
                                     <tr>
                                         <td><%= i %></td>
-                                        <td><%= dtcutikhusus.getIdDetailKhusus() %></td>
+                                        <td><%= dtcuti.getIdKaryawan().getIdKaryawan() %></td>
+                                        <td><%= dtcuti.getIdKaryawan().getNamaKaryawan() %></td>
+                                        <td><%= cuti.getTanggalAwal() %></td>
+                                        <td><%= cuti.getTanggalAkhir() %></td>
+                                        <td><%= dtcuti.getLamaCuti() %></td>
+                                        <td><%= cuti.getKeterangan() %></td>
+                                        <td><% if (dtcuti.getStatus() == null) {
+                                                out.print("Menunggu");
+                                            } else {
+                                                out.print(dtcuti.getStatus());
+                                            }
+                                            %></td>
+                                        <td>
+                                            <a href="../actionTerimaApproval?idUmum=<%= cuti.getIdCuti() %>">Diterima</a>
+                                            <a href="../actionTolak?idUmum=<%= cuti.getIdCuti() %>"> | Ditolak</a>
+                                        </td> 
+                                    </tr>
+                                    <% 
+                                        i++;
+                                        }
+                                        }
+                    int j = i;
+                                        for (CutiKhusus cutikhusus : ck.getAll()){
+                                         for (Dtcutikhusus dtcutikhusus : cutikhusus.getDtcutikhususList()) {
+                                    %>
+                                    <tr>
+                                        <td><%= j %></td>
+                                        <td><%= dtcutikhusus.getIdKaryawan().getIdKaryawan() %></td>
                                         <td><%= dtcutikhusus.getIdKaryawan().getNamaKaryawan() %></td>
-                                        <td><%= dtcutikhusus.getIdCutiKhusus().getNamaCuti() %></td>
+                                        <td><%= cutikhusus.getTanggalAwal() %></td>
+                                        <td><%= cutikhusus.getTanggalAkhir() %></td>
+                                        <td><%= cutikhusus.getLamaCutiKhusus() %></td>
+                                        <td><%= cutikhusus.getNamaCuti() %></td>
                                         <td><% if (dtcutikhusus.getStatus() == null) {
                                                 out.print("Menunggu");
                                             } else {
                                                 out.print(dtcutikhusus.getStatus());
                                             }
                                             %></td>
+
                                         <td>
-                                            <a href="../dtcutiKhususServlet?id=<%= dtcutikhusus.getIdDetailKhusus() %>">Edit</a>
+                                            <a href="../actionTerimaApproval?idKhusus=<%= cutikhusus.getIdCutiKhusus() %>">Diterima</a>
+                                            <a href="../actionTolak?idKhusus=<%= cutikhusus.getIdCutiKhusus() %>"> | Ditolak</a>
                                         </td>
+
                                     </tr>
+
                                     <%
-                                           i++;
+                                       j++;    
                                         }
+                    }
                                     %>
 
                                 </tbody>
@@ -163,11 +209,7 @@
                     </div>
                 </div>
             </div>
-
-
-            <!-- /.container-fluid -->
-
-            <!-- Sticky Footer -->
+<!-- Sticky Footer -->
             <footer class="sticky-footer">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">

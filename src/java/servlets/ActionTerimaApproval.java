@@ -5,23 +5,20 @@
  */
 package servlets;
 
-import controllers.KaryawanController;
+import controllers.CutiController;
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import method.BCrypt;
 import tools.HibernateUtil;
 
 /**
  *
- * @author kresna bayu
+ * @author Simbok_pc
  */
-public class ValidationServlet extends HttpServlet {
+public class ActionTerimaApproval extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,30 +32,20 @@ public class ValidationServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String email = request.getParameter("txtEmail");
-        String password = request.getParameter("txtPassword");
-        String salt = BCrypt.gensalt(12);
-        HttpSession session = request.getSession();
-        RequestDispatcher dispatcher = null;
-
+        String idUmum = request.getParameter("idUmum");
+        String idKhusus = request.getParameter("idKhusus");
+        
         try (PrintWriter out = response.getWriter()) {
-            KaryawanController kc = new KaryawanController(HibernateUtil.getSessionFactory());
-            if (email == "" || email == null || password == "" || password == null) {
-                out.println("Isikan Email/Password");
+            CutiController cc = new CutiController(HibernateUtil.getSessionFactory());
+            if (idUmum != null){
+                out.println("kondisi cuti umum apa aja yang berubah");
             } else {
-                if (kc.login("email", email, password)) {
-//                    session.setAttribute("id", kc.getByCategory("email", email).getIdKaryawan());
-                    session.setAttribute("email", email);
-                    response.sendRedirect("views/admin.jsp");
-                } else {
-                    response.sendRedirect("views/login.jsp");
-                   
-                }
+                out.println("kondisi cuti khusus apa aja yang berubah");
             }
         }
     }
-// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
 
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *

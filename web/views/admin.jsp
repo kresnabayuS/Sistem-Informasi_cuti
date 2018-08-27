@@ -89,16 +89,17 @@
                         <span>Karyawan Cuti</span></a>
                 </li>
                 <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fas fa-fw fa-folder"></i>
-            <span>Data Karyawan</span>
-          </a>
-          <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-            <h6 class="dropdown-header">Data Cuti:</h6>
-            <a class="dropdown-item" href="dtcutiView.jsp">Detail Cuti</a>
-            <a class="dropdown-item" href="dtCutiKhususView.jsp">Detail Cuti Khusus</a>
-          </div>
-        </li>
+                    <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-fw fa-folder"></i>
+                        <span>Data Cuti</span>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+                        <h6 class="dropdown-header">Data Cuti:</h6>
+                        <a class="dropdown-item" href="dtcutiView.jsp">Detail Cuti</a>
+                        <a class="dropdown-item" href="dtCutiKhususView.jsp">Detail Cuti Khusus</a>
+                        <a class="dropdown-item" href="formApproval.jsp">Halaman Approval Cuti</a>
+                    </div>
+                </li>
             </ul>
 
             <div id="content-wrapper">

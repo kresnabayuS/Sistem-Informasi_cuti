@@ -12,7 +12,9 @@
 <%@page import="entities.Jabatan"%>
 <%@page import="entities.Role"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
+<% if (session.getAttribute("email") == null) {
+        response.sendRedirect("login.jsp");
+    } else { %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -85,6 +87,17 @@
                         <i class="fas fa-fw fa-table"></i>
                         <span>Karyawan Cuti</span></a>
                 </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-fw fa-folder"></i>
+                        <span>Data Cuti</span>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+                        <h6 class="dropdown-header">Data Cuti:</h6>
+                        <a class="dropdown-item" href="dtcutiView.jsp">Detail Cuti</a>
+                        <a class="dropdown-item" href="dtCutiKhususView.jsp">Detail Cuti Khusus</a>
+                    </div>
+                </li>
             </ul>
 
             <div id="content-wrapper">
@@ -131,7 +144,7 @@
                                             <td><%= karyawan.getAlamat()%></td>
                                             <td>
                                                 <span><a class="btn btn-outline btn-success" href="../karyawanServlet?id=<%= karyawan.getIdKaryawan()%>">Edit</a></span>
-                                                
+
                                             </td>
                                         </tr>
                                         <% i++;}  %>
@@ -206,3 +219,4 @@
     </body>
 
 </html>
+<% } %>

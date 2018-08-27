@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2ac7a59f-9f16-45b2-bf6d-d6e0e679d89c">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Times New Roman" fontSize="50" isBold="true" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<style name="Row" mode="Transparent">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style backcolor="#E6DAC3"/>
+		</conditionalStyle>
+	</style>
+	<queryString>
+		<![CDATA[SELECT
+     KARYAWAN."NAMA_KARYAWAN" AS KARYAWAN_NAMA_KARYAWAN,
+     KARYAWAN."EMAIL" AS KARYAWAN_EMAIL,
+     KARYAWAN."ALAMAT" AS KARYAWAN_ALAMAT,
+     JABATAN."NAMA_JABATAN" AS JABATAN_NAMA_JABATAN,
+     KARYAWAN."ID_KARYAWAN" AS KARYAWAN_ID_KARYAWAN
+FROM
+     "CUTI"."JABATAN" JABATAN INNER JOIN "CUTI"."KARYAWAN" KARYAWAN ON JABATAN."ID_JABATAN" = KARYAWAN."ID_JABATAN"]]>
+	</queryString>
+	<field name="KARYAWAN_NAMA_KARYAWAN" class="java.lang.String"/>
+	<field name="KARYAWAN_EMAIL" class="java.lang.String"/>
+	<field name="KARYAWAN_ALAMAT" class="java.lang.String"/>
+	<field name="JABATAN_NAMA_JABATAN" class="java.lang.String"/>
+	<field name="KARYAWAN_ID_KARYAWAN" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="136" splitType="Stretch">
+			<staticText>
+				<reportElement style="Title" x="270" y="0" width="263" height="62" uuid="ca4e7349-aa57-454d-8b98-d1d5cbc858b7"/>
+				<textElement verticalAlignment="Middle">
+					<font size="24" pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[DATA KARYAWAN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="SubTitle" x="303" y="62" width="196" height="22" uuid="b3a2aac5-a836-4283-9bc1-6281195709db"/>
+				<textElement>
+					<font fontName="Times New Roman" pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[Coffee SubTitle]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="172" y="94" width="383" height="42" uuid="d3ae059c-ddee-4c19-b6f0-653b794acee0"/>
+				<textElement textAlignment="Right">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce auctor purus gravida arcu aliquam mattis. Donec et nulla libero, ut varius massa. Nulla sed turpis elit. Etiam aliquet mauris a ligula hendrerit in auctor leo lobortis.]]></text>
+			</staticText>
+			<image>
+				<reportElement x="633" y="-73" width="219" height="209" uuid="ca91f98c-e946-4399-a6fe-0580b6694a50"/>
+				<imageExpression><![CDATA["coffee_stain.png"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="0" y="13" width="143" height="123" uuid="afbffceb-d67b-4354-a126-65a3d71a085f"/>
+				<imageExpression><![CDATA["E:\\mii.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="16" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="802" height="1" uuid="08bf0101-fb1b-4956-8c2c-310066eceef2"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement style="Column header" x="133" y="0" width="133" height="15" forecolor="#736343" uuid="f91cc4f6-f521-4df7-97b7-b6e9402fe37b"/>
+				<text><![CDATA[KARYAWAN_NAMA_KARYAWAN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="266" y="0" width="133" height="15" forecolor="#736343" uuid="f1eabd57-ed4d-4353-b199-6de2bd83d087"/>
+				<text><![CDATA[KARYAWAN_EMAIL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="399" y="0" width="133" height="15" forecolor="#736343" uuid="e1e5577b-1046-44a0-ad84-8b83e7fe2f77"/>
+				<text><![CDATA[KARYAWAN_ALAMAT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="532" y="0" width="133" height="15" forecolor="#736343" uuid="f6924bc7-8a61-484f-863b-e86182645701"/>
+				<text><![CDATA[JABATAN_NAMA_JABATAN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="665" y="0" width="133" height="15" forecolor="#736343" uuid="f689061a-1476-485e-982e-a95fad8192f9"/>
+				<text><![CDATA[KARYAWAN_ID_KARYAWAN]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<frame>
+				<reportElement style="Row" mode="Opaque" x="0" y="0" width="802" height="15" uuid="fd9bb96c-1c80-4bc5-9b23-3859e1f8fb43"/>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="133" y="0" width="133" height="15" uuid="d531ac15-e555-46fe-9bf8-f4a5e0ff2af0"/>
+					<textFieldExpression><![CDATA[$F{KARYAWAN_NAMA_KARYAWAN}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="266" y="0" width="133" height="15" uuid="48250ef0-1e60-473d-9d31-2877b2142405"/>
+					<textFieldExpression><![CDATA[$F{KARYAWAN_EMAIL}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="399" y="0" width="133" height="15" uuid="5ab3c440-6998-4b53-a5b6-6e1a7684eeb4"/>
+					<textFieldExpression><![CDATA[$F{KARYAWAN_ALAMAT}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="532" y="0" width="133" height="15" uuid="5f947a5a-61f3-45b5-9dc9-91ac214bd7e1"/>
+					<textFieldExpression><![CDATA[$F{JABATAN_NAMA_JABATAN}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="665" y="0" width="133" height="15" uuid="4c695901-8396-4972-9396-856829db7d5e"/>
+					<textFieldExpression><![CDATA[$F{KARYAWAN_ID_KARYAWAN}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="6" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="802" height="1" uuid="ea2379c1-25d3-46ea-9e90-e0518277c266"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="25" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="-21" y="1" width="843" height="24" forecolor="#D0B48E" backcolor="#F2EBDF" uuid="4386ba2a-8ad6-40cd-8d60-4c9e02f02a5d"/>
+				<textField evaluationTime="Report">
+					<reportElement style="Column header" x="783" y="1" width="40" height="20" forecolor="#736343" uuid="051c824e-acd4-4d9b-87f2-9443bb4c7989"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Column header" x="703" y="1" width="80" height="20" forecolor="#736343" uuid="88a4054f-3b56-462e-b3b4-f38699a500ac"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+				</textField>
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement style="Column header" x="22" y="1" width="197" height="20" forecolor="#736343" uuid="9677f256-1b36-4857-95c4-a2503df7531f"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
